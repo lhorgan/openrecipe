@@ -11,7 +11,7 @@ class Recipe extends Component {
   }
   
   setRecipe(recipe) {
-    this.setState({recipe: recipe});
+    setState({recipe: recipe});
   }
   
   render() {
