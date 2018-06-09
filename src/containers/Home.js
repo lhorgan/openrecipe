@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import { BrowserRouter } from 'react-router-dom'
-
-const recipes = [{
-  
-}];
+import SearchBox from './SearchBox'
 
 class Recipe extends Component {
   constructor(props) {
@@ -12,14 +9,12 @@ class Recipe extends Component {
     this.setRecipe = this.setRecipe.bind(this);
   }
   
-  setRecipe(recipe) {
-    this.setState({recipe: recipe});
-  }
-  
   render() {
-    return (<div>
-      This is a recipe!
-    </div>)
+    return (
+      <div>
+        <SearchBox />
+      </div>
+    )
   }
 }
 

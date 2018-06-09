@@ -18,7 +18,7 @@ class Recipe extends Component {
   
   render() {
     return (<div>
-      This is a recipe!
+      This is a list!
     </div>)
   }
 }
