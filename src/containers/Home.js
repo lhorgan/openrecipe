@@ -19,4 +19,4 @@ class Home extends Component {
   }
 }
 
-export default Recipe;
+export default Home;
