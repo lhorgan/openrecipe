@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
+import UserService from '../services/UserService'
 
 class Register extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Register extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleVerifyPassword = this.handleVerifyPassword.bind(this);
     this.createUser = this.createUser.bind(this);
+    this.userService = UserService.instance;
   }
 
   handleUsernameChange(event) {
@@ -36,10 +38,10 @@ class Register extends React.Component {
   createUser() {
     if (this.state.user.password !== this.state.verifiedPassword) {
       alert("Passwords do not match!");
+    } else {
+      this.userService
+        .createUser(this.state.user);
     }
-
-    // do some service shit here
-
   }
 
   render() {
