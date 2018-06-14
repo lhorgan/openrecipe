@@ -22,23 +22,26 @@ export default class Ingredient extends React.Component {
 
   setQuantity(evt) {
     console.log(evt.target.value);
-    let newState = Object.assign(this.state);
-    newState.ingredient.quantity = evt.target.vaue;
-    this.setState({ingredient: newState});
+    this.setState({"ingredient": {
+      ...this.state.ingredient,
+      quantity : evt.target.value
+    }});
   }
 
   setMeasure(evt) {
     console.log(evt.target.value);
-    let newState = Object.assign(this.state);
-    newState.ingredient.measure= evt.target.vaue;
-    this.setState({ingredient: newState});
+    this.setState({"ingredient": {
+      ...this.state.ingredient,
+      measure : evt.target.value
+    }});
   }
 
   setFood(evt) {
-    //console.log(evt.target.value);
-    let newState = Object.assign(this.state);
-    newState.ingredient.food = evt.target.vaue;
-    this.setState({ingredient: newState});
+    console.log(evt.target.value);
+    this.setState({"ingredient": {
+      ...this.state.ingredient,
+      food : evt.target.value
+    }});
   }
 
   render() {
