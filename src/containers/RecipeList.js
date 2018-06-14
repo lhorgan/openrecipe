@@ -5,7 +5,7 @@ const recipes = [{
   
 }];
 
-class Recipe extends Component {
+class RecipeList extends Component {
   constructor(props) {
     super(props);
     
@@ -23,4 +23,4 @@ class Recipe extends Component {
   }
 }
 
-export default Recipe;
+export default RecipeList;
