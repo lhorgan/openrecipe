@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
 import UserService from '../services/UserService'
+import Profile from './Profile'
+import { Link } from 'react-router-dom'
 
 class Register extends React.Component {
   constructor(props) {
@@ -65,9 +67,11 @@ class Register extends React.Component {
             <input value={this.state.verifiedPassword} onChange={this.handleVerifyPassword} />
           </label>
         </form>
-        <button onClick={this.createUser} className="btn btn-primary btn-block" type="button">
-          Register
-        </button>
+        <Link to={`/profile`}>
+          <button onClick={this.createUser} className="btn btn-primary btn-block" type="button">
+            Register
+          </button>
+        </Link>
       </div>
     )
   }
