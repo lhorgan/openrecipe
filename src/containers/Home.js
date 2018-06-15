@@ -3,8 +3,9 @@ import { BrowserRouter } from 'react-router-dom'
 
 import SearchBox from '../components/SearchBox'
 import Recipe from '../components/Recipe'
+import CreateRecipeModal from '../components/CreateRecipeModal'
 
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
   }
@@ -14,9 +15,8 @@ class Home extends Component {
       <div>
         <SearchBox />
         <Recipe />
+        <CreateRecipeModal/>
       </div>
     )
   }
 }
-
-export default Home;

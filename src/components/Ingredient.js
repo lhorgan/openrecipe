@@ -5,9 +5,9 @@ export default class Ingredient extends React.Component {
     super(props);
 
     this.state = {"ingredient": {
-      quantity: 7,
-      measure: "liters",
-      food: "blood"
+      quantity: "",
+      measure: "",
+      food: ""
     }};
 
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -17,7 +17,9 @@ export default class Ingredient extends React.Component {
   }
 
   componentDidMount() {
-    //this.setState({ingredient: this.props.ingredient});
+    if (this.props.ingredient) {
+      this.setState({ingredient: this.props.ingredient});
+    }
   }
 
   setQuantity(evt) {
