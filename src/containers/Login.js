@@ -51,7 +51,10 @@ class Login extends React.Component {
           if (this.isEmpty(json)) {
             alert("Invalid username and password!");
           } else {
-            this.props.history.push('/profile');
+            this.props.history.push({
+              pathname: '/profile',
+              state: { user: json }
+            })
           }
       });
   }
@@ -59,21 +62,29 @@ class Login extends React.Component {
   render() {
     return (
       <div className="container-fluid">
+        <h1>Login</h1>
         <form>
           <label>
             Username:
-            <input value={this.state.user.username} onChange={this.handleUsernameChange} />
+            <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
           </label>
         </form>
         <form>
           <label>
             Password:
-            <input value={this.state.user.password} onChange={this.handlePasswordChange} />
+            <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
           </label>
         </form>
           <button onClick={this.loginUser} className="btn btn-primary btn-block" type="button">
             Sign In
           </button>
+
+        <Link to={`/register`}>
+          Register
+        </Link>
+        <Link to={`/`} className="float-right">
+          Home
+        </Link>
       </div>
     )
   }
