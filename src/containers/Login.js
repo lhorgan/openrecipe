@@ -62,13 +62,13 @@ class Login extends React.Component {
         <form>
           <label>
             Username:
-            <input value={this.state.user.username} onChange={this.handleUsernameChange} />
+            <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
           </label>
         </form>
         <form>
           <label>
             Password:
-            <input value={this.state.user.password} onChange={this.handlePasswordChange} />
+            <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
           </label>
         </form>
           <button onClick={this.loginUser} className="btn btn-primary btn-block" type="button">

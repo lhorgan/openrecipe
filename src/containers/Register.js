@@ -49,24 +49,30 @@ class Register extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <form>
-          <label>
-            Username:
-            <input value={this.state.user.username} onChange={this.handleUsernameChange} />
-          </label>
-        </form>
-        <form>
-          <label>
-            Password:
-            <input value={this.state.user.password} onChange={this.handlePasswordChange} />
-          </label>
-        </form>
-        <form>
-          <label>
-            Verify Password:
-            <input value={this.state.verifiedPassword} onChange={this.handleVerifyPassword} />
-          </label>
-        </form>
+        <div>
+          <form>
+            <label>
+              Username:
+              <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
+            </label>
+          </form>
+        </div>
+        <div>
+          <form>
+            <label>
+              Password:
+              <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
+            </label>
+          </form>
+        </div>
+        <div>
+          <form>
+            <label>
+              Verify Password:
+              <input className="form-control" value={this.state.verifiedPassword} onChange={this.handleVerifyPassword} />
+            </label>
+          </form>
+        </div>
         <Link to={`/profile`}>
           <button onClick={this.createUser} className="btn btn-primary btn-block" type="button">
             Register
