@@ -16,11 +16,7 @@ export default class IngredientList extends React.Component {
   }
 
   ingredientRows() {
-    console.log("RENDERING ROWS");
-    console.log(this.state.ingredients);
     var rows =  this.state.ingredients.map((ingredient, index) => {
-      console.log("ingredient " + index + " : ");
-      console.log(ingredient);
       return (
         <Ingredient ingredient={ingredient} key={index}/>
       )
@@ -37,6 +33,38 @@ export default class IngredientList extends React.Component {
     });
     this.setState({ingredients: ingredientAdded});
     console.log(this.state.ingredients);
+  }
+
+  udpateIngredient(index, updatedIngredient) {
+    var ingredientUpdated = this.state.ingredients;
+    ingredientUpdated[index] = updatedIngredient;
+    this.setState()
+  }
+
+  setQuantityOfIngredient(evt, index) {
+    let updatedIngredient = this.state.ingredients[index];
+    updatedIngredient = {
+      ...updatedIngredient,
+      quantity : evt.target.value
+    }
+
+    this.setState({ingr})
+  }
+
+  setMeasureOfIngredient(evt, index) {
+    console.log(evt.target.value);
+    this.setState({"ingredient": {
+      ...this.state.ingredient,
+      measure : evt.target.value
+    }});
+  }
+
+  setFoodOfIngredient(evt, index) {
+    console.log(evt.target.value);
+    this.setState({"ingredient": {
+      ...this.state.ingredient,
+      food : evt.target.value
+    }});
   }
 
   render() {
