@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
 import UserService from '../services/UserService'
+import { Link } from 'react-router-dom'
+import Profile from './Profile'
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,14 +12,14 @@ class Login extends React.Component {
       user: {
         username: '',
         password: ''
-      },
-      verifiedPassword: ''
+      }
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleVerifyPassword = this.handleVerifyPassword.bind(this);
     this.userService = UserService.instance;
+    this.loginUser = this.loginUser.bind(this);
+    this.isEmpty = this.isEmpty.bind(this);
   }
 
   handleUsernameChange(event) {
@@ -30,12 +32,28 @@ class Login extends React.Component {
     console.log(this.state.user)
   }
 
-  handleVerifyPassword(event) {
-    this.setState({verifiedPassword: event.target.value});
+  isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
   }
 
-  createUser() {
-
+  loginUser() {
+    this.userService
+      .login(this.state.user)
+      .then((response) => {
+         return response.text().then(text => {
+          return text ? JSON.parse(text) : {}
+         })
+      }).then(json => {
+          if (this.isEmpty(json)) {
+            alert("Invalid username and password!");
+          } else {
+            this.props.history.push('/profile');
+          }
+      });
   }
 
   render() {
@@ -53,15 +71,9 @@ class Login extends React.Component {
             <input value={this.state.user.password} onChange={this.handlePasswordChange} />
           </label>
         </form>
-        <form>
-          <label>
-            Verify Password:
-            <input value={this.state.verifiedPassword} onChange={this.handleVerifyPassword} />
-          </label>
-        </form>
-        <button onClick={this.createUser} className="btn btn-primary btn-block" type="button">
-          Sign In
-        </button>
+          <button onClick={this.loginUser} className="btn btn-primary btn-block" type="button">
+            Sign In
+          </button>
       </div>
     )
   }
