@@ -47,14 +47,12 @@ class Login extends React.Component {
          return response.text().then(text => {
           return text ? JSON.parse(text) : {}
          })
-      })
-      .then(json => {
-        if (this.isEmpty(json)) {
-          alert("Invalid username and password!");
-        } else {
-          alert("yay good job!!!");
-        }
-
+      }).then(json => {
+          if (this.isEmpty(json)) {
+            alert("Invalid username and password!");
+          } else {
+            this.props.history.push('/profile');
+          }
       });
   }
 
@@ -73,11 +71,9 @@ class Login extends React.Component {
             <input value={this.state.user.password} onChange={this.handlePasswordChange} />
           </label>
         </form>
-        <Link to={`/profile`}>
           <button onClick={this.loginUser} className="btn btn-primary btn-block" type="button">
             Sign In
           </button>
-        </Link>
       </div>
     )
   }
