@@ -49,6 +49,7 @@ class Register extends React.Component {
   render() {
     return (
       <div className="container-fluid">
+        <h1>Register</h1>
         <div>
           <form>
             <label>
@@ -77,6 +78,13 @@ class Register extends React.Component {
           <button onClick={this.createUser} className="btn btn-primary btn-block" type="button">
             Register
           </button>
+        </Link>
+
+        <Link to={`/login`}>
+          Login
+        </Link>
+        <Link to={`/`} className="float-right">
+          Home
         </Link>
       </div>
     )
