@@ -52,8 +52,8 @@ class Login extends React.Component {
             alert("Invalid username and password!");
           } else {
             this.props.history.push({
-            pathname: '/profile',
-            state: { user: json }
+              pathname: '/profile',
+              state: { user: json }
             })
           }
       });
