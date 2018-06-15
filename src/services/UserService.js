@@ -2,6 +2,8 @@ const USER_API_URL =
     'http://localhost:8080/api/user';
 const LOGIN_API_URL =
     'http://localhost:8080/api/login';
+const REGISTER_API_URL =
+    'http://localhost:8080/api/register'
 
 let _singleton = Symbol();
 
@@ -24,9 +26,7 @@ export default class UserService {
            'Content-Type': 'application/json'
         },
         method: 'POST'
-      }).then(function (response) {
-        return response.json();
-      })
+      });
     }
 
     login(user) {
@@ -36,6 +36,16 @@ export default class UserService {
         headers: {
             'Content-Type': 'application/json'
         }
+      });
+    }
+
+    registerUser(user) {
+      return fetch(REGISTER_API_URL, {
+        body: JSON.stringify(user),
+        headers: {
+           'Content-Type': 'application/json'
+        },
+        method: 'POST'
       });
     }
 }
