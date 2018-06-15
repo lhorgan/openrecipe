@@ -63,7 +63,10 @@ class Register extends React.Component {
             if (this.isEmpty(json)) {
               alert("This username is already taken!");
             } else {
-              this.props.history.push('/profile');
+              this.props.history.push({
+                pathname: '/profile',
+                state: { user: json }
+              })
             }
         });
     }
