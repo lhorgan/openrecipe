@@ -16,6 +16,8 @@ export default class IngredientList extends React.Component {
   }
 
   ingredientRows() {
+    console.log("RENDERING ROWS");
+    console.log(this.state.ingredients);
     var rows =  this.state.ingredients.map((ingredient, index) => {
       console.log("ingredient " + index + " : ");
       console.log(ingredient);
@@ -27,11 +29,13 @@ export default class IngredientList extends React.Component {
   }
 
   addIngredient() {
-    this.setState({ingredients: this.state.ingredients.push({
+    var ingredientAdded = this.state.ingredients;
+    ingredientAdded.push({
       quantity : "",
       measure : "",
       food : ""
-    })});
+    });
+    this.setState({ingredients: ingredientAdded});
     console.log(this.state.ingredients);
   }
 
