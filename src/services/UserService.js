@@ -1,5 +1,7 @@
 const USER_API_URL =
     'http://localhost:8080/api/user';
+const LOGIN_API_URL =
+    'http://localhost:8080/api/login';
 
 let _singleton = Symbol();
 
@@ -25,5 +27,15 @@ export default class UserService {
       }).then(function (response) {
         return response.json();
       })
+    }
+
+    login(user) {
+      return fetch(LOGIN_API_URL, {
+        method: 'post',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      });
     }
 }
