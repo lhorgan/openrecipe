@@ -1,21 +1,18 @@
 import React, {Component} from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import SearchBox from '../components/SearchBox'
 import Recipe from '../components/Recipe'
-import CreateRecipeModal from '../components/CreateRecipeModal'
 
 export default class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
       <div>
         <SearchBox />
         <Recipe />
-        <CreateRecipeModal/>
+        <Link to={`/register`} className="btn btn-primary">Register</Link>
+        <Link to={`/login`} className="btn btn-default">Login</Link>
       </div>
     )
   }

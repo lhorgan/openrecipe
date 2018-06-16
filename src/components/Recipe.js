@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
-import { BrowserRouter } from 'react-router-dom'
-import Ingredient from './Ingredient'
 
 import RecipeService from '../services/RecipeService'
-
-const recipes = [{
-
-}];
 
 function makeRecipe() {
   var recipe = {"ingredients": []};
   for(var i = 0; i < getRndInteger(3, 21); i++) {
-    var ingredient = {"food": {"label": getRandomFood()}, "quantity": getRndInteger(1, 34), "measure": getRandomMeasure()};
+    var ingredient = {"food": {"label": getRandomFood()}, "quantity": getRndInteger(1, 34), "measure": {"label": getRandomMeasure()}};
     recipe.ingredients.push(ingredient);
   }
   return recipe;
@@ -61,7 +55,6 @@ class Recipe extends Component {
   render() {
     return (<div>
       This is a recipe!
-      <Ingredient />
       <button onClick={this.createRecipe}>PLEASE CLICK ME FOR FOOD!!!</button>
     </div>)
   }

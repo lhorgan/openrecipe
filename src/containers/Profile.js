@@ -15,7 +15,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-  //  this.setState({user: this.props.location.state.user});
+    this.setState({user: this.props.location.state.user});
   }
 
  openCreateModal() {
@@ -29,9 +29,11 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <h1>Profile</h1>
+        <h1>Hello, user {this.state.user.id}: {this.state.user.username}!</h1>
         <button className="btn btn-default" onClick={this.openCreateModal}>Create Recipe</button>
-        <CreateRecipeModal isOpen={this.state.createModalOpen} onHide={this.closeCreateModal}/>
+        <CreateRecipeModal isOpen={this.state.createModalOpen}
+                           onHide={this.closeCreateModal}
+                           userId={this.state.user.id}/>
       </div>
     )
   }

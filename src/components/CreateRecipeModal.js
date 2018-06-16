@@ -21,7 +21,7 @@ export default class CreateRecipeModal extends React.Component {
 
   createRecipe() {
     console.log("recipe save button clicked!");
-
+    this.recipeService.createRecipe(this.state, this.props.userId)
   }
 
   setInstructions(evt) {
