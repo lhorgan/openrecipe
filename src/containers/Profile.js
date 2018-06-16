@@ -30,9 +30,9 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <h1>{this.state.user.username}</h1>
+        <h1>Profile</h1>
         <button className="btn btn-default" onClick={this.openCreateModal}>Create Recipe</button>
-        <CreateRecipeModal show={this.state.createModalOpen} onHide={this.closeCreateModal}/>
+        <CreateRecipeModal isOpen={this.state.createModalOpen} onHide={this.closeCreateModal}/>
       </div>
     )
   }
