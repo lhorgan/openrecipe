@@ -14,6 +14,7 @@ export default class IngredientList extends React.Component {
     this.ingredientRows = this.ingredientRows.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.setPropertyOfIngredient = this.setPropertyOfIngredient.bind(this);
+    this.deleteIngredient = this.deleteIngredient.bind(this);
   }
 
   ingredientRows() {
@@ -22,6 +23,9 @@ export default class IngredientList extends React.Component {
         <Ingredient ingredient={ingredient} key={index}
                     setProperty={(evt, property) => (
                       this.setPropertyOfIngredient(evt, property, index)
+                    )}
+                    delete={() => (
+                      this.deleteIngredient(index)
                     )}/>
       )
     });
@@ -38,18 +42,26 @@ export default class IngredientList extends React.Component {
     console.log(this.state.ingredients);
   }
 
+  deleteIngredient(index) {
+    let ingredientDeleted = this.state.ingredients.slice();
+    ingredientDeleted.splice(index, 1);
+    this.setState( {ingredients: ingredientDeleted})
+  }
+
   setPropertyOfIngredient(evt, property, index) {
-    let updatedIngredient = this.state.ingredients[index];
-    updatedIngredient[property] = evt.target.value;
     let updatedIngredients = this.state.ingredients.slice();
-    //updatedIngredients[index] = updatedIngredient;
+    let updatedIngredient = updatedIngredients[index];
+    updatedIngredient[property] = evt.target.value;
     this.setState({ingredients: updatedIngredients})
   }
 
   render() {
     return (
-      <div>
-        {this.ingredientRows()}<button onClick={this.addIngredient}>+</button>
+      <div className="clearfix">
+        <h5>Ingredients</h5>
+        {this.ingredientRows()}
+        <button className="btn btn-default float-right"
+                onClick={this.addIngredient}>Add Ingredient</button>
       </div>
     );
   }
