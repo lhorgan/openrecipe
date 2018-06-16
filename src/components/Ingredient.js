@@ -10,7 +10,7 @@ export default class Ingredient extends React.Component {
   }
 
   setQuantity(evt) {
-    this.props.setProperty(evt, 'quantity');
+    this.props.setQuantity(evt);
   }
 
   setMeasure(evt) {
@@ -26,9 +26,9 @@ export default class Ingredient extends React.Component {
       <input type="number" placeholder="1" className="num-input mr-2"
              value={this.props.ingredient.quantity} onChange={this.setQuantity} />
       <input placeholder="cup" className="measure-input mr-2"
-             value={this.props.ingredient.measure} onChange={this.setMeasure} />
+             value={this.props.ingredient.measure.label} onChange={this.setMeasure} />
       <input placeholder="parsley"
-             value={this.props.ingredient.food} onChange={this.setFood} />
+             value={this.props.ingredient.food.label} onChange={this.setFood} />
       <span className="float-right">
         <i className="fa fa-trash p-2" onClick={this.props.delete}></i>
       </span>

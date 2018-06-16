@@ -9,23 +9,61 @@ export default class CreateRecipeModal extends React.Component {
     super(props);
 
     this.state = {
-      ingredients: [],
+      ingredients : [{
+        'quantity' : "",
+        'measure' : "",
+        'food' : ""
+      }],
       instructions: ""
     }
 
     this.recipeService = RecipeService.instance
     this.createRecipe = this.createRecipe.bind(this);
     this.setInstructions = this.setInstructions.bind(this);
+    this.addIngredient = this.addIngredient.bind(this);
+    this.setPropertyOfIngredient = this.setPropertyOfIngredient.bind(this);
+    this.setQuantityOfIngredient = this.setQuantityOfIngredient.bind(this);
+    this.deleteIngredient = this.deleteIngredient.bind(this);
     Modal.setAppElement("#root");
   }
 
   createRecipe() {
     console.log("recipe save button clicked!");
-    this.recipeService.createRecipe(this.state, this.props.userId)
+    this.recipeService.createRecipe(this.state, this.props.userId);
   }
 
   setInstructions(evt) {
     this.setState({instructions: evt.target.value});
+  }
+
+  addIngredient() {
+    this.setState({
+      ingredients: [...this.state.ingredients, {
+          'quantity' : "",
+          'measure' : "",
+          'food' : ""
+        }]});
+    console.log(this.state.ingredients);
+  }
+
+  deleteIngredient(index) {
+    let ingredientDeleted = this.state.ingredients.slice();
+    ingredientDeleted.splice(index, 1);
+    this.setState( {ingredients: ingredientDeleted})
+  }
+
+  setPropertyOfIngredient(evt, property, index) {
+    let updatedIngredients = this.state.ingredients.slice();
+    let updatedIngredient = updatedIngredients[index];
+    updatedIngredient[property] = {label: evt.target.value};
+    this.setState({ingredients: updatedIngredients})
+  }
+
+  setQuantityOfIngredient(evt, index) {
+    let updatedIngredients = this.state.ingredients.slice();
+    let updatedIngredient = updatedIngredients[index];
+    updatedIngredient['quantity'] = evt.target.value;
+    this.setState({ingredients: updatedIngredients})
   }
 
   render() {
@@ -44,7 +82,11 @@ export default class CreateRecipeModal extends React.Component {
             </button>
           </div>
           <div className="modal-body">
-            <IngredientList/>
+            <IngredientList ingredients={this.state.ingredients}
+                            add={this.addIngredient}
+                            delete={this.deleteIngredient}
+                            setProperty={this.setPropertyOfIngredient}
+                            setQuantity={this.setQuantityOfIngredient}/>
             <div className="form-group">
               <label htmlFor="instructions">Instructions</label>
               <textarea className="form-control" id="instructions"
