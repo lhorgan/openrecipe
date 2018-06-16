@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import CreateRecipeModal from '../components/CreateRecipeModal';
 
 class Profile extends Component {

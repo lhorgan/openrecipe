@@ -5,9 +5,9 @@ export default class Ingredient extends React.Component {
     super(props);
 
     this.state = {"ingredient": {
-      quantity: "",
-      measure: "",
-      food: ""
+      'quantity': "",
+      'measure': "",
+      'food': ""
     }};
 
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -23,27 +23,15 @@ export default class Ingredient extends React.Component {
   }
 
   setQuantity(evt) {
-    console.log(evt.target.value);
-    this.setState({"ingredient": {
-      ...this.state.ingredient,
-      quantity : evt.target.value
-    }});
+    this.props.setProperty(evt, 'quantity');
   }
 
   setMeasure(evt) {
-    console.log(evt.target.value);
-    this.setState({"ingredient": {
-      ...this.state.ingredient,
-      measure : evt.target.value
-    }});
+    this.props.setProperty(evt, 'measure');
   }
 
   setFood(evt) {
-    console.log(evt.target.value);
-    this.setState({"ingredient": {
-      ...this.state.ingredient,
-      food : evt.target.value
-    }});
+    this.props.setProperty(evt, 'food');
   }
 
   render() {
