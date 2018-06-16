@@ -11,7 +11,7 @@ const recipes = [{
 function makeRecipe() {
   var recipe = {"ingredients": []};
   for(var i = 0; i < getRndInteger(3, 21); i++) {
-    var ingredient = {"food": getRandomFood(), "quantity": getRndInteger(1, 34), "measure": getRandomMeasure()};
+    var ingredient = {"food": {"label": getRandomFood()}, "quantity": getRndInteger(1, 34), "measure": getRandomMeasure()};
     recipe.ingredients.push(ingredient);
   }
   return recipe;
@@ -52,10 +52,10 @@ class Recipe extends Component {
   }
 
   createRecipe() {
-    this.recipeService.createRecipe(makeRecipe(), 2).then((data) => {
+    this.recipeService.createRecipe(makeRecipe(), 2);/*.then((data) => {
       console.log("YESSS");
       console.log(data);
-    });
+  });*/
   }
 
   render() {
