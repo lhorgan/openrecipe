@@ -21,7 +21,10 @@ class SearchBox extends Component {
   }
 
   search(evt) {
-      alert(this.state.query);
+      let query = this.state.query;
+      this.recipeService.search(this.state.query).then((res) => {
+          console.log(res);
+      });
   }
 
   render() {
