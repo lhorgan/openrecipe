@@ -27,9 +27,9 @@ class SearchBox extends Component {
   search(evt) {
       let query = this.state.query;
       this.recipeService.search(this.state.query).then((res) => {
-          console.log(res);
+          //console.log(res);
           if(typeof(this.state.searchComplete) === "function") {
-              this.state.searchComplete(res);
+              this.state.searchComplete(res.hits);
           }
           else {
               console.log(this.state.searchComplete);
