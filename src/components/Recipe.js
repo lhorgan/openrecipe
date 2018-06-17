@@ -9,9 +9,13 @@ const recipes = [{
 }];
 
 function makeRecipe() {
-  var recipe = {"ingredients": []};
+  var recipe = {"ingredients": [],
+                "dietLabels": [{"label": 3}]};
   for(var i = 0; i < getRndInteger(3, 21); i++) {
-    var ingredient = {"food": {"label": getRandomFood()}, "quantity": getRndInteger(1, 34), "measure": getRandomMeasure()};
+    var ingredient = {"food": {"label": getRandomFood()},
+                      "quantity": getRndInteger(1, 34),
+                      "measure": {"label": getRandomMeasure()}
+                     };
     recipe.ingredients.push(ingredient);
   }
   return recipe;
@@ -29,7 +33,7 @@ const foods = [
   "smarmalade", "tahini", "uracil", "veggies", "wandering melon", "xanathan gum", "yams", "zucchini"
 ];
 function getRandomFood() {
-  return foods[getRndInteger(0, 25)];
+  return foods[getRndInteger(0, foods.length - 1)];
 }
 
 function getRndInteger(min, max) {

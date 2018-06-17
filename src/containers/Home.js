@@ -13,10 +13,9 @@ class Home extends Component {
     return (
       <div>
         <SearchBox />
-        <Recipe />
       </div>
     )
   }
 }
 
-export default Recipe;
+export default Home;

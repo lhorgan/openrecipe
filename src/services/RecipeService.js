@@ -22,7 +22,7 @@ export default class RecipeService {
       console.log(recipe);
       fetch(USHOST + "/api/user/" + userId + "/recipe/create", {
         method: "POST",
-        body: JSON.stringify(recipe),
+        body: JSON.stringify({"ingredients": [], "dietLabels": []}),
         headers: {
           'Content-Type' : 'application/json'
         },
