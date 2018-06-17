@@ -15,6 +15,10 @@ class SearchBox extends Component {
     this.search = this.search.bind(this);
   }
 
+  componentDidMount() {
+      this.setState({"searchComplete": this.props.searchComplete});
+  }
+
   updateQuery(evt) {
       //console.log(evt.target.value);
       this.setState({"query": evt.target.value});
@@ -24,6 +28,12 @@ class SearchBox extends Component {
       let query = this.state.query;
       this.recipeService.search(this.state.query).then((res) => {
           console.log(res);
+          if(typeof(this.state.searchComplete) === "function") {
+              this.state.searchComplete(res);
+          }
+          else {
+              console.log(this.state.searchComplete);
+          }
       });
   }
 

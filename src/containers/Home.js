@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { BrowserRouter } from 'react-router-dom'
 
 import SearchBox from '../components/SearchBox'
+import SearchAndList from '../containers/SearchAndList'
 import Recipe from '../components/Recipe'
 
 class Home extends Component {
@@ -12,7 +13,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <SearchBox />
+        <SearchAndList />
       </div>
     )
   }
