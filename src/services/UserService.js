@@ -1,9 +1,12 @@
+const BASE_URL = "https://recipe-server-4550.herokuapp.com";
+//const BASE_URL = "http:localhost:8000";
+
 const USER_API_URL =
-    'http://localhost:8080/api/user';
+    BASE_URL + '/api/user';
 const LOGIN_API_URL =
-    'http://localhost:8080/api/login';
+    BASE_URL + '/api/login';
 const REGISTER_API_URL =
-    'http://localhost:8080/api/register'
+    BASE_URL + '/api/register';
 
 let _singleton = Symbol();
 
