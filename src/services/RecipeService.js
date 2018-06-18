@@ -1,5 +1,8 @@
+const BASE_URL = "https://recipe-server-4550.herokuapp.com";
+//const BASE_URL = "http:localhost:8000";
+
 const EDHOST = "https://api.edamam.com";
-const USHOST = "http://localhost:8080";
+const USHOST = BASE_URL;
 const APP_ID = "9e5dbffd";
 const APP_KEY = "7a87790bd58b4773a7936914a67cb03b";
 
