@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
-import { BrowserRouter } from 'react-router-dom'
-import Ingredient from './Ingredient'
 
 import RecipeService from '../services/RecipeService'
-
-const recipes = [{
-
-}];
 
 function makeRecipe() {
   var recipe = {"ingredients": [],
@@ -65,7 +59,6 @@ class Recipe extends Component {
   render() {
     return (<div>
       This is a recipe!
-      <Ingredient />
       <button onClick={this.createRecipe}>PLEASE CLICK ME FOR FOOD!!!</button>
     </div>)
   }
