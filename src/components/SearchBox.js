@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { BrowserRouter } from 'react-router-dom'
 
 import RecipeService from '../services/RecipeService'
 
@@ -7,7 +6,7 @@ class SearchBox extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {"query": ""};
+    this.state = {query: ""};
 
     this.recipeService = RecipeService.instance;
 
@@ -21,7 +20,7 @@ class SearchBox extends Component {
 
   updateQuery(evt) {
       //console.log(evt.target.value);
-      this.setState({"query": evt.target.value});
+      this.setState({query: evt.target.value});
   }
 
   search(evt) {
