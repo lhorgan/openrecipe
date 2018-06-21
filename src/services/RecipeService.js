@@ -3,8 +3,8 @@ const BASE_URL = "https://recipe-server-4550.herokuapp.com";
 
 const EDHOST = "https://api.edamam.com";
 const USHOST = BASE_URL;
-const APP_ID = "9e5dbffd";
-const APP_KEY = "7a87790bd58b4773a7936914a67cb03b";
+const APP_ID = "8b63961c";
+const APP_KEY = "5d3dc98ab8d33fdbed1564c15ad8f17b";
 
 let _singleton = Symbol();
 
