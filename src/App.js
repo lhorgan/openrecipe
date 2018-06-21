@@ -5,6 +5,7 @@ import Home from './containers/Home'
 import Login from './containers/Login'
 import Register from './containers/Register'
 import Profile from './containers/Profile'
+import Recipe from './containers/Recipe'
 
 class App extends Component {
   render() {
@@ -22,6 +23,9 @@ class App extends Component {
           </Route>
           <Route path="/profile"
             component={Profile}>
+          </Route>
+          <Route path="/recipe"
+            component={Recipe}>
           </Route>
         </div>
       </Router>

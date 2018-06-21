@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import SearchBox from '../components/SearchBox'
+import { Link } from 'react-router-dom'
+
 
 class SearchAndList extends Component {
     constructor(props) {
@@ -21,7 +23,11 @@ class SearchAndList extends Component {
                   <SearchBox searchComplete={this.listResults} />
                   <ol>
                   {this.state.results.map((result, idx) => {
-                    return <li key={idx}>{ result.recipe.label }</li>
+                    return <div key={idx}>
+                             <Link to={{pathname: '/recipe', state: {recipe: result.recipe}}}>
+                               {result.recipe.label}
+                             </Link>
+                           </div>
                   })}
                   </ol>
                 </div>)
