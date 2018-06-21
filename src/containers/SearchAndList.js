@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import SearchBox from '../components/SearchBox'
 import { Link } from 'react-router-dom'
 
-
 class SearchAndList extends Component {
     constructor(props) {
         super(props);

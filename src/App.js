@@ -5,7 +5,7 @@ import Home from './containers/Home'
 import Login from './containers/Login'
 import Register from './containers/Register'
 import Profile from './containers/Profile'
-import Recipe from './containers/Recipe'
+import SearchRecipe from './containers/SearchRecipe'
 
 class App extends Component {
   render() {
@@ -25,7 +25,7 @@ class App extends Component {
             component={Profile}>
           </Route>
           <Route path="/recipe"
-            component={Recipe}>
+            component={SearchRecipe}>
           </Route>
         </div>
       </Router>

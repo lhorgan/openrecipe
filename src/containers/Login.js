@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
-import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
+import React from 'react';
 import UserService from '../services/UserService'
 import { Link } from 'react-router-dom'
-import Profile from './Profile'
 
 class Login extends React.Component {
   constructor(props) {

@@ -1,7 +1,5 @@
-import React, {Component} from 'react';
-import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
+import React from 'react';
 import UserService from '../services/UserService'
-import Profile from './Profile'
 import { Link } from 'react-router-dom'
 
 class Register extends React.Component {
@@ -50,7 +48,7 @@ class Register extends React.Component {
     if (this.state.user.password !== this.state.verifiedPassword) {
       alert("Passwords do not match!");
     }
-    else if (this.state.user.username == "") {
+    else if (this.state.user.username === "") {
       alert("Please enter a valid username")
     } else {
       this.userService
