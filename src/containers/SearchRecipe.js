@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../styles/SearchRecipe.css';
 
 export default class Recipe extends Component {
 
@@ -42,22 +43,22 @@ export default class Recipe extends Component {
         <h1>{this.state.recipe.label}</h1>
         <div>
           <ul className="nav nav-tabs">
-            <li className="nav-item" onClick={this.overviewSelected}>
+            <li className="nav-item recipe-tab" onClick={this.overviewSelected}>
               <div className="nav-link active">
                 Overview
               </div>
             </li>
-            <li className="nav-item" onClick={this.ingredientsSelected}>
+            <li className="nav-item recipe-tab" onClick={this.ingredientsSelected}>
               <div className="nav-link active">
                 Ingredients
               </div>
             </li>
-            <li className="nav-item" onClick={this.nutrientsSelected}>
+            <li className="nav-item recipe-tab" onClick={this.nutrientsSelected}>
               <div className="nav-link active">
                 Nutrition Info
               </div>
             </li>
-            <li className="nav-item" onClick={this.reviewsSelected}>
+            <li className="nav-item recipe-tab" onClick={this.reviewsSelected}>
               <div className="nav-link active">
                 Reviews
               </div>
@@ -76,15 +77,14 @@ export default class Recipe extends Component {
                        </div>
             }) :
             this.state.tabView === 'reviews' ?
-              <h1>Reviews will go here!!</h1> :
-              <img src={this.state.recipe.image} />}
-              <div>
-
-              </div>
-
-              <div>
-                <a href={this.state.recipe.url}> Click to see full recipe </a>
-              </div>
+              <h1>Reviews will go here!!</h1>
+              : <div>
+                  <img src={this.state.recipe.image} />
+                  <div>
+                    <a href={this.state.recipe.url}> Click to see full recipe </a>
+                  </div>
+                </div>
+              }
         </div>
         </div>
       </div>
