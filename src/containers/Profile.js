@@ -15,7 +15,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.setState({user: this.props.location.state.user});
+    //this.setState({user: this.props.location.state.user});
   }
 
  openCreateModal() {

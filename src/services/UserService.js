@@ -12,6 +12,8 @@ let _singleton = Symbol();
 
 export default class UserService {
     constructor(singletonToken) {
+      this.user = null;
+      this.userUpdateCallbacks = [];
       if (_singleton !== singletonToken)
         throw new Error('Cannot instantiate directly.');
     }
@@ -26,10 +28,25 @@ export default class UserService {
       return fetch(USER_API_URL, {
         body: JSON.stringify(user),
         headers: {
-           'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         method: 'POST'
       });
+    }
+
+    updateUser(user) {
+      this.user = user;
+      for(let i = 0; i < this.userUpdateCallbacks.length; i++) {
+        this.userUpdateCallbacks[i](user);
+      }
+    }
+
+    subscribeToUser(cb) {
+      this.userUpdateCallbacks.push(cb);
+    }
+
+    getLoggedInUser() {
+      return this.user;
     }
 
     login(user) {
@@ -37,8 +54,15 @@ export default class UserService {
         method: 'post',
         body: JSON.stringify(user),
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         }
+      })
+      .then(resp => {
+        return resp.json();
+      })
+      .then(user => {
+        console.log("Logged in user " + JSON.stringify(user));
+        this.updateUser(user);
       });
     }
 
@@ -46,7 +70,7 @@ export default class UserService {
       return fetch(REGISTER_API_URL, {
         body: JSON.stringify(user),
         headers: {
-           'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         method: 'POST'
       });

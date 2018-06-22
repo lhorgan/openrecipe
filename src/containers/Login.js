@@ -22,12 +22,12 @@ class Login extends React.Component {
 
   handleUsernameChange(event) {
     this.setState({user: {...this.state.user, username: event.target.value}});
-    console.log(this.state.user)
+    //console.log(this.state.user)
   }
 
   handlePasswordChange(event) {
     this.setState({user: {...this.state.user, password: event.target.value}});
-    console.log(this.state.user)
+    //console.log(this.state.user)
   }
 
   isEmpty(obj) {
@@ -41,19 +41,16 @@ class Login extends React.Component {
   loginUser() {
     this.userService
       .login(this.state.user)
-      .then((response) => {
+      /*.then((response) => {
          return response.text().then(text => {
           return text ? JSON.parse(text) : {}
-         })
-      }).then(json => {
-          if (this.isEmpty(json)) {
-            alert("Invalid username and password!");
-          } else {
-            this.props.history.push({
-              pathname: '/profile',
-              state: { user: json }
-            })
-          }
+        })
+      })*/
+      .then(user => {
+        this.props.history.push({
+          pathname: '/profile',
+          /*state: { user: user }*/
+        })
       });
   }
 
