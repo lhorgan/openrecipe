@@ -23,6 +23,7 @@ export default class CreateRecipeModal extends React.Component {
     this.addIngredient = this.addIngredient.bind(this);
     this.setPropertyOfIngredient = this.setPropertyOfIngredient.bind(this);
     this.deleteIngredient = this.deleteIngredient.bind(this);
+    this.setLabel = this.setLabel.bind(this);
     Modal.setAppElement("#root");
   }
 
@@ -33,6 +34,10 @@ export default class CreateRecipeModal extends React.Component {
 
   setInstructions(evt) {
     this.setState({instructions: evt.target.value});
+  }
+
+  setLabel(evt) {
+    this.setState({label: evt.target.value});
   }
 
   addIngredient() {
@@ -50,15 +55,6 @@ export default class CreateRecipeModal extends React.Component {
     ingredientDeleted.splice(index, 1);
     this.setState({ingredients: ingredientDeleted});
   }
-
-  /*setPropertyOfIngredient(evt, property, index) {
-    //let updatedIngredients = this.state.ingredients.slice();
-    //updatedIngredients[index][property] = {"label": evt.target.value};
-    let stateCopy = JSON.parse(JSON.stringify(this.state));
-    stateCopy.ingredients[index][property] = {"label": "";
-    this.setState(stateCopy);
-
-  }*/
 
   setPropertyOfIngredient(evt, property, index) {
     let updatedIngredients = this.state.ingredients.slice();
@@ -83,6 +79,13 @@ export default class CreateRecipeModal extends React.Component {
             </button>
           </div>
           <div className="modal-body">
+            <div className="form-group">
+              <label htmlFor="label">Name</label>
+              <input className="recipe-label"
+                     id="recipe-label"
+                     placeholder="Title"
+                     onChange={this.setLabel} />
+            </div>
             <IngredientList ingredients={this.state.ingredients}
                             add={this.addIngredient}
                             delete={this.deleteIngredient}

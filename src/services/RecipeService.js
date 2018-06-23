@@ -31,7 +31,7 @@ export default class RecipeService {
 
       fetch(USHOST + "/api/user/" + userId + "/recipe/create", {
         method: "POST",
-        body: JSON.stringify({"ingredients": [], "dietLabels": []}),
+        body: JSON.stringify(recipeCopy),
         headers: {
           'Content-Type' : 'application/json'
         },
@@ -44,7 +44,7 @@ export default class RecipeService {
       });
     }
 
-    search(query) {
+    /*search(query) {
       let url = EDHOST + "/search?q=" + query
                        + "&app_id=" + APP_ID
                        + "&app_key=" + APP_KEY;
@@ -52,11 +52,27 @@ export default class RecipeService {
       return fetch(url, {}).then((response) => {
         return response.json();
       })
+      .then(recipes => {
+        console.log(recipes);
+        return recipes;
+      })
       .catch((error) => {
         console.error("Fetch from Edamam failed");
         console.error(error);
         return null;
       });
+    }*/
+
+    search(query, page) {
+      console.log("THE QUERY: " + query);
+      let url = BASE_URL + "/api/recipe/search/" + query + "/page/" + 1;
+      return fetch(url, {}).then(response => response.json())
+                           .then(recipes => {
+                             console.log(recipes);
+                             return {"hits": recipes.map(recipe => {
+                               return {"recipe": recipe}
+                             })};
+                           });
     }
 
     getRecipe(uri) {
