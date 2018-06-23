@@ -66,13 +66,17 @@ export default class RecipeService {
     search(query, page) {
       console.log("THE QUERY: " + query);
       let url = BASE_URL + "/api/recipe/search/" + query + "/page/" + 1;
-      return fetch(url, {}).then(response => response.json())
-                           .then(recipes => {
-                             console.log(recipes);
-                             return {"hits": recipes.map(recipe => {
-                               return {"recipe": recipe}
-                             })};
-                           });
+      return fetch(url, {})
+             .then(response => response.json())
+             .then(recipes => {
+               console.log(recipes);
+               return {"hits": recipes.map(recipe => {
+                 recipe.ingredients = recipe.ingredients.map(ingredient => {
+                   return {...ingredient, "text": ingredient.quantity + " " + ingredient.measure.label + " " + ingredient.food.label}; 
+                 });
+                 return {"recipe": recipe}
+               })};
+             });
     }
 
     getRecipe(uri) {
