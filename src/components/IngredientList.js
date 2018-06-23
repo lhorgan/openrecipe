@@ -14,9 +14,6 @@ export default class IngredientList extends React.Component {
                     setProperty={(evt, property) => (
                       this.props.setProperty(evt, property, index)
                     )}
-                    setQuantity={(evt) => (
-                      this.props.setQuantity(evt, index)
-                    )}
                     delete={() => (
                       this.props.delete(index)
                     )}/>

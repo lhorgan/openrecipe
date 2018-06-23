@@ -11,8 +11,8 @@ export default class CreateRecipeModal extends React.Component {
     this.state = {
       ingredients : [{
         'quantity' : "",
-        'measure' : "",
-        'food' : ""
+        'measure' : {},
+        'food' : {}
       }],
       instructions: ""
     }
@@ -22,7 +22,6 @@ export default class CreateRecipeModal extends React.Component {
     this.setInstructions = this.setInstructions.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.setPropertyOfIngredient = this.setPropertyOfIngredient.bind(this);
-    this.setQuantityOfIngredient = this.setQuantityOfIngredient.bind(this);
     this.deleteIngredient = this.deleteIngredient.bind(this);
     Modal.setAppElement("#root");
   }
@@ -40,8 +39,8 @@ export default class CreateRecipeModal extends React.Component {
     this.setState({
       ingredients: [...this.state.ingredients, {
           'quantity' : "",
-          'measure' : "",
-          'food' : ""
+          'measure' : {},
+          'food' : {}
         }]});
     console.log(this.state.ingredients);
   }
@@ -49,21 +48,23 @@ export default class CreateRecipeModal extends React.Component {
   deleteIngredient(index) {
     let ingredientDeleted = this.state.ingredients.slice();
     ingredientDeleted.splice(index, 1);
-    this.setState( {ingredients: ingredientDeleted})
+    this.setState({ingredients: ingredientDeleted});
   }
+
+  /*setPropertyOfIngredient(evt, property, index) {
+    //let updatedIngredients = this.state.ingredients.slice();
+    //updatedIngredients[index][property] = {"label": evt.target.value};
+    let stateCopy = JSON.parse(JSON.stringify(this.state));
+    stateCopy.ingredients[index][property] = {"label": "";
+    this.setState(stateCopy);
+
+  }*/
 
   setPropertyOfIngredient(evt, property, index) {
     let updatedIngredients = this.state.ingredients.slice();
     let updatedIngredient = updatedIngredients[index];
-    updatedIngredient[property] = {label: evt.target.value};
-    this.setState({ingredients: updatedIngredients})
-  }
-
-  setQuantityOfIngredient(evt, index) {
-    let updatedIngredients = this.state.ingredients.slice();
-    let updatedIngredient = updatedIngredients[index];
-    updatedIngredient['quantity'] = evt.target.value;
-    this.setState({ingredients: updatedIngredients})
+    updatedIngredient[property] = evt.target.value;
+    this.setState({ingredients: updatedIngredients});
   }
 
   render() {
@@ -85,8 +86,7 @@ export default class CreateRecipeModal extends React.Component {
             <IngredientList ingredients={this.state.ingredients}
                             add={this.addIngredient}
                             delete={this.deleteIngredient}
-                            setProperty={this.setPropertyOfIngredient}
-                            setQuantity={this.setQuantityOfIngredient}/>
+                            setProperty={this.setPropertyOfIngredient} />
             <div className="form-group">
               <label htmlFor="instructions">Instructions</label>
               <textarea className="form-control" id="instructions"

@@ -8,23 +8,24 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      user: {},
+      user: null,
       createModalOpen: false
     };
 
     this.userService = UserService.instance;
-    this.userService.subscribeToUser(user => this.setState({user}));
+    //this.userService.subscribeToUser(user => this.setState({user}));
     this.openCreateModal = this.openCreateModal.bind(this);
     this.closeCreateModal = this.closeCreateModal.bind(this);
   }
 
   componentDidMount() {
     //this.setState({user: this.props.location.state.user});
-    this.userService.getLoggedInUser()
+    /*this.userService.getLoggedInUser()
                     .then(user => {
                       console.log("profile received user " + JSON.stringify(user));
                       this.setState({user: user});
-                    })
+                    });*/
+    this.userService.subscribeToUser(user => this.setState({user}));
   }
 
  openCreateModal() {

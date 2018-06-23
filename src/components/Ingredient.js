@@ -10,7 +10,7 @@ export default class Ingredient extends React.Component {
   }
 
   setQuantity(evt) {
-    this.props.setQuantity(evt);
+    this.props.setProperty(evt, 'quantity');
   }
 
   setMeasure(evt) {

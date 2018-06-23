@@ -43,6 +43,16 @@ export default class UserService {
 
     subscribeToUser(cb) {
       this.userUpdateCallbacks.push(cb);
+      if(this.user) {
+        console.log("we have a user already!");
+        for(let i = 0; i < this.userUpdateCallbacks.length; i++) {
+          this.userUpdateCallbacks[i](this.user);
+        }
+      }
+      else {
+        console.log("we haven't got a user atm");
+        this.getLoggedInUser();
+      }
     }
 
     getLoggedInUser() {

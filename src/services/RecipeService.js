@@ -22,7 +22,13 @@ export default class RecipeService {
     }
 
     createRecipe(recipe, userId) {
+      console.log("creating recipe...");
       console.log(recipe);
+      let recipeCopy = JSON.parse(JSON.stringify(recipe));
+      recipeCopy.ingredients = recipeCopy.ingredients.map(ingredient => {
+        return {"quantity": ingredient.quantity, "food": {"label": ingredient.food}, "measure": {"label": ingredient.measure}};
+      });
+
       fetch(USHOST + "/api/user/" + userId + "/recipe/create", {
         method: "POST",
         body: JSON.stringify({"ingredients": [], "dietLabels": []}),
@@ -45,7 +51,8 @@ export default class RecipeService {
 
       return fetch(url, {}).then((response) => {
         return response.json();
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error("Fetch from Edamam failed");
         console.error(error);
         return null;
