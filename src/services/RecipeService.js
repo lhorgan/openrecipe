@@ -1,5 +1,5 @@
-const BASE_URL = "https://recipe-server-4550.herokuapp.com";
-//const BASE_URL = "http:localhost:8000";
+//const BASE_URL = "https://recipe-server-4550.herokuapp.com";
+const BASE_URL = "http://localhost:8080";
 
 const EDHOST = "https://api.edamam.com";
 const USHOST = BASE_URL;
@@ -29,7 +29,7 @@ export default class RecipeService {
         headers: {
           'Content-Type' : 'application/json'
         },
-        credentials: 'same-origin'
+        credentials: 'include'
       }).then((response) => {
         return response.json();
       }).catch((error) => {

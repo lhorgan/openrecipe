@@ -1,5 +1,5 @@
-const BASE_URL = "https://recipe-server-4550.herokuapp.com";
-//const BASE_URL = "http:localhost:8000";
+//const BASE_URL = "https://recipe-server-4550.herokuapp.com";
+const BASE_URL = "http://localhost:8080";
 
 const USER_API_URL =
     BASE_URL + '/api/user';
@@ -12,7 +12,6 @@ let _singleton = Symbol();
 
 export default class UserService {
     constructor(singletonToken) {
-      this.user = null;
       this.userUpdateCallbacks = [];
       if (_singleton !== singletonToken)
         throw new Error('Cannot instantiate directly.');
@@ -30,7 +29,8 @@ export default class UserService {
         headers: {
           'Content-Type': 'application/json'
         },
-        method: 'POST'
+        method: 'POST',
+        credentials: 'include'
       });
     }
 
@@ -55,7 +55,8 @@ export default class UserService {
         body: JSON.stringify(user),
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
       })
       .then(resp => {
         return resp.json();
@@ -72,7 +73,30 @@ export default class UserService {
         headers: {
           'Content-Type': 'application/json'
         },
-        method: 'POST'
+        method: 'POST',
+        credentials: 'include'
       });
+    }
+
+    getLoggedInUser() {
+      if(!this.user) {
+        this.user = {};
+        console.log("setting empty user");
+        return fetch(USER_API_URL + "/current", {
+          credentials: 'include'
+        })
+        .then(resp => resp.json())
+        .then(user => {
+          console.log("fetched user " + JSON.stringify(user) + " from server");
+          this.updateUser(user);
+          return user;
+        })
+        .catch(err => {
+          console.log("ERROR " + err);
+        });
+      }
+      else {
+        return new Promise(() => this.user);
+      }
     }
 }
