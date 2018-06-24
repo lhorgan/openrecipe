@@ -38,8 +38,15 @@ class SearchBox extends Component {
 
   render() {
     return (<div>
-      <input type="text" placeholder="search" onChange={this.updateQuery} value={this.state.query} />
-      <span onClick={this.search}>Search</span>
+      <div className="input-group mb-3">
+        <input type="text" className="form-control col-md-6" placeholder="search for a recipe..."
+               onChange={this.updateQuery} value={this.state.query}/>
+        <div className="input-group-append">
+          <button className="btn btn-primary" type="button" onClick={this.search}>
+            <i className="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
     </div>)
   }
 }
