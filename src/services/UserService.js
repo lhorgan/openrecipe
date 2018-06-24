@@ -142,4 +142,14 @@ export default class UserService {
                return users;
              });
     }
+
+    getUser(id) {
+      return fetch(USER_API_URL, {credentials: "include"})
+            .then(resp => resp.json())
+            .then(user => {
+              console.log("GOT USER " + id);
+              console.log(user);
+              return user;
+            })
+    }
 }

@@ -10,6 +10,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render((
   <BrowserRouter>
-    <App />
+    <div>
+      <App />
+    </div>
   </BrowserRouter>
 ), document.getElementById('root'))
