@@ -33,6 +33,11 @@ class Admin extends Component {
   }
 
   render() {
+    if(this.state.user) {
+      //alert(this.state.user.admin);
+      //alert(this.state.user.username);
+      console.log(this.state.user.admin);
+    }
     if(this.state.user && this.state.user.admin) {
       return (
         <div>

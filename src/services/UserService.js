@@ -36,6 +36,8 @@ export default class UserService {
 
     updateUser(user) {
       this.user = user;
+      console.log("here's our new user");
+      console.log(user);
       for(let i = 0; i < this.userUpdateCallbacks.length; i++) {
         this.userUpdateCallbacks[i](user);
       }
@@ -118,6 +120,15 @@ export default class UserService {
           'Content-Type': 'application/json'
         },
         credentials: 'include'
+      })
+      .then(resp => {
+        return resp.json();
+      })
+      .then(user => {
+        if(user.id === this.user.id) {
+          this.updateUser(user);
+          return user;
+        }
       });
     }
 
