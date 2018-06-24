@@ -143,13 +143,39 @@ export default class UserService {
              });
     }
 
-    getUser(id) {
-      return fetch(USER_API_URL, {credentials: "include"})
+    findUserById(id) {
+      return fetch(USER_API_URL + "/" + id, {credentials: "include"})
             .then(resp => resp.json())
             .then(user => {
               console.log("GOT USER " + id);
               console.log(user);
               return user;
             })
+    }
+
+    followUser(id) {
+      return fetch(USER_API_URL + "/follow/" + id, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        credentials: 'include'
+      })
+      .then(resp => resp.json())
+      .then(user => {
+        console.log(user);
+        return user;
+      })
+    }
+
+    getFollowings() {
+      return fetch(USER_API_URL + "/following/list", {
+        credentials: "include"
+      })
+      .then(resp => resp.json())
+      .then(following => {
+        console.log(following);
+        return following;
+      })
     }
 }

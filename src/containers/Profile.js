@@ -3,6 +3,7 @@ import CreateRecipeModal from '../components/CreateRecipeModal';
 import NavBar from '../components/NavBar'
 
 import UserService from '../services/UserService'
+import UserInfo from './UserInfo'
 
 class Profile extends Component {
   constructor(props) {
@@ -52,30 +53,7 @@ class Profile extends Component {
                                  onHide={this.closeCreateModal}
                                  userId={this.state.user.id}/>
             </div>
-            <div className="row">
-              <div className="col-sm-3">
-                {/*left col*/}
-                <ul className="list-group mb-2">
-                  <li className="list-group-item text-muted">Profile</li>
-                  <li className="list-group-item text-right"><span className="pull-left"><strong>Joined</strong></span>never</li>
-                  <li className="list-group-item text-right"><span className="pull-left"><strong>Real name</strong></span>boop</li>
-                </ul>
-                <ul className="list-group">
-                  <li className="list-group-item text-muted">Activity <i className="fa fa-dashboard fa-1x" />
-                  </li>
-                  <li className="list-group-item text-right"><span className="pull-left"><strong>Reviews</strong></span>3</li>
-                  <li className="list-group-item text-right" style={{'cursor': 'pointer'}}>
-                    <span className="pull-left"><strong>Followers</strong></span>3
-                  </li>
-                  <li className="list-group-item text-right" style={{'cursor': 'pointer'}}>
-                    <span className="pull-left"><strong>Following</strong></span>3
-                  </li>
-                </ul>
-              </div>
-              <div className="col-sm-9">
-
-              </div>
-            </div>
+            <UserInfo user={this.state.user} />
           </div>
         </div>
       )
