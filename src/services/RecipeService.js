@@ -46,7 +46,7 @@ export default class RecipeService {
       });
     }
 
-    search(query) {
+    searchEdamam(query) {
       let url = EDHOST + "/search?q=" + query
                        + "&app_id=" + APP_ID
                        + "&app_key=" + APP_KEY;
@@ -61,11 +61,11 @@ export default class RecipeService {
       .catch((error) => {
         console.error("Fetch from Edamam failed");
         console.error(error);
-        return null;
+        return [];
       });
     }
 
-    /*search(query, page) {
+    search(query, page) {
       console.log("THE QUERY: " + query);
       let url = BASE_URL + "/api/recipe/search/" + query + "/page/" + 1;
       return fetch(url, {})
@@ -78,8 +78,15 @@ export default class RecipeService {
                  });
                  return {"recipe": recipe}
                })};
+             })
+             .then(recipeList => {
+               return this.searchEdamam(query)
+                          .then(edamamRecipes => {
+                            edamamRecipes.hits = recipeList.hits.concat(edamamRecipes.hits);
+                            return edamamRecipes;
+                          });
              });
-    }*/
+    }
 
     getRecipe(uri) {
       let url = EDHOST + "/search?r=" + uri
