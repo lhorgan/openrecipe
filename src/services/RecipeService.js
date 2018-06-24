@@ -25,11 +25,13 @@ export default class RecipeService {
       console.log("creating recipe...");
       console.log(recipe);
       let recipeCopy = JSON.parse(JSON.stringify(recipe));
-      recipeCopy.ingredients = recipeCopy.ingredients.map(ingredient => {
-        return {"quantity": ingredient.quantity, "food": {"label": ingredient.food}, "measure": {"label": ingredient.measure}};
-      });
+      if(recipeCopy.ingredients) {
+        recipeCopy.ingredients = recipeCopy.ingredients.map(ingredient => {
+          return {"quantity": ingredient.quantity, "food": {"label": ingredient.food}, "measure": {"label": ingredient.measure}};
+        });
+      }
 
-      fetch(USHOST + "/api/user/" + userId + "/recipe/create", {
+      return fetch(BASE_URL + "/api/recipe/create", {
         method: "POST",
         body: JSON.stringify(recipeCopy),
         headers: {
@@ -44,7 +46,7 @@ export default class RecipeService {
       });
     }
 
-    /*search(query) {
+    search(query) {
       let url = EDHOST + "/search?q=" + query
                        + "&app_id=" + APP_ID
                        + "&app_key=" + APP_KEY;
@@ -61,9 +63,9 @@ export default class RecipeService {
         console.error(error);
         return null;
       });
-    }*/
+    }
 
-    search(query, page) {
+    /*search(query, page) {
       console.log("THE QUERY: " + query);
       let url = BASE_URL + "/api/recipe/search/" + query + "/page/" + 1;
       return fetch(url, {})
@@ -72,12 +74,12 @@ export default class RecipeService {
                console.log(recipes);
                return {"hits": recipes.map(recipe => {
                  recipe.ingredients = recipe.ingredients.map(ingredient => {
-                   return {...ingredient, "text": ingredient.quantity + " " + ingredient.measure.label + " " + ingredient.food.label}; 
+                   return {...ingredient, "text": ingredient.quantity + " " + ingredient.measure.label + " " + ingredient.food.label};
                  });
                  return {"recipe": recipe}
                })};
              });
-    }
+    }*/
 
     getRecipe(uri) {
       let url = EDHOST + "/search?r=" + uri
@@ -91,5 +93,70 @@ export default class RecipeService {
         console.error(error);
         return null;
       });
+    }
+
+    addReview(recipeId, recipeURI, review) {
+      let reviewObj = {"review": review};
+      if(recipeId) {
+        console.log("adding a review the normal way now...");
+        let url = BASE_URL + "/api/review/id/" + recipeId;
+        return fetch(url, {
+          method: "POST",
+          body: JSON.stringify(reviewObj),
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          credentials: 'include'
+        })
+        .then(resp => {
+          return resp.json();
+        })
+        .then(review => {
+          console.log(review);
+          return review;
+        })
+        .catch(err => {
+          console.log("ERROR: " + err);
+          return {};
+        })
+      }
+      else {
+        console.log("this recipe hasn't got an id yet :(");
+        return this.createRecipe({"uri": recipeURI})
+            .then(recipe => {
+              console.log("here's the recipe we got back....");
+              console.log(recipe);
+              return this.addReview(recipe.id, null, review);
+            });
+      }
+    }
+
+    getReviews(recipeId, recipeURI) {
+      if(recipeId) {
+        let url = BASE_URL + "/api/review/id/" + recipeId;
+        return fetch(url, {}).then((response) => {
+          return response.json();
+        })
+        .then(reviews => {
+          console.log(reviews);
+          return reviews;
+        });
+      }
+      else {
+        console.log("finding reviews for recipe with uri " + recipeURI);
+        let url = BASE_URL + "/api/review/uri/?uri=" + encodeURIComponent(recipeURI);
+        console.log(url);
+        return fetch(url, {}).then(response => {
+          return response.json();
+        })
+        .then(reviews => {
+          console.log("here's the recipe we found for uri " + recipeURI);
+          return reviews;
+        })
+        .catch(err => {
+          console.log(err);
+          return [];
+        });
+      }
     }
 }

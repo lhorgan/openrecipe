@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../styles/SearchRecipe.css';
 
+import ReviewList from "./ReviewList"
+
 export default class Recipe extends Component {
 
   constructor(props) {
@@ -54,7 +56,14 @@ export default class Recipe extends Component {
       }
     }
     else if(this.state.tabView === "reviews") {
-      return "Reviews will go here!";
+      if(this.state.recipe.id) {
+        console.log("This recipe has an ID!");
+        return <ReviewList recipeId={this.state.recipe.id} />
+      }
+      else if(this.state.recipe.uri) {
+        console.log("This recipe has a URI: " + this.state.recipe.uri);
+        return <ReviewList recipeURI={this.state.recipe.uri} />
+      }
     }
     else if(this.state.tabView === "overview") {
       return <div>Overview</div>
