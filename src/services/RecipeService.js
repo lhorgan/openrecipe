@@ -181,4 +181,15 @@ export default class RecipeService {
                return null;
              });
     }
+
+    endorseRecipe(recipeId) {
+      let url = BASE_URL + "/api/recipe/" + recipeId + "/endorse";
+      return fetch(url, {credentials: "include"})
+             .then(resp => resp.json())
+             .then(user => {
+               console.log(user);
+               console.log("endorsed recipe!");
+               return user;
+             });
+    }
 }
