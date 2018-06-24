@@ -109,4 +109,15 @@ export default class UserService {
         return new Promise(() => this.user);
       }
     }
+
+    findAllUsers() {
+      console.log("fetching all users");
+      return fetch(USER_API_URL, {credentials: "include"})
+             .then(resp => resp.json())
+             .then(users => {
+               console.log("WE FOUND THE FOLLOWING LIST OF USERS");
+               console.log(users);
+               return users;
+             });
+    }
 }
