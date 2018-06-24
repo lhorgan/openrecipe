@@ -166,4 +166,19 @@ export default class RecipeService {
         });
       }
     }
+
+    getCreatedByUser(recipeId) {
+      let url = BASE_URL + "/api/recipe/" + recipeId + "/user";
+      console.log(url);
+      return fetch(url, {})
+             .then(resp => resp.json())
+             .then(user => {
+               console.log("created by user " + JSON.stringify(user));
+               return user;
+             })
+             .catch(err => {
+               console.log("error, no user for recipe " + recipeId);
+               return null;
+             });
+    }
 }

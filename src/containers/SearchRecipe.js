@@ -1,23 +1,39 @@
 import React, {Component} from 'react';
 import '../styles/SearchRecipe.css';
 
+import RecipeService from '../services/RecipeService'
 import ReviewList from "./ReviewList"
 
 export default class Recipe extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {recipe: {}, tabView: ''};
+    this.state = {recipe: {}, tabView: '', createdByUser: null};
+
+    this.recipeService = RecipeService.instance;
 
     this.ingredientsSelected = this.ingredientsSelected.bind(this);
     this.nutrientsSelected = this.nutrientsSelected.bind(this);
     this.reviewsSelected = this.reviewsSelected.bind(this);
     this.overviewSelected = this.overviewSelected.bind(this);
+    this.getCreatedByTag = this.getCreatedByTag.bind(this);
   }
 
   componentDidMount() {
-    this.setState({recipe: this.props.location.state.recipe});
+    let recipe = this.props.location.state.recipe;
+    this.setState({recipe: recipe});
     this.setState({tabView: 'overview'})
+
+    if(recipe.id) {
+      this.recipeService.getCreatedByUser(recipe.id)
+                        .then(user => {
+                          if(user) {
+                            console.log("created by user " + user.username);
+                            this.setState({createdByUser: user});
+                          }
+                        });
+    }
+
     console.log(this.props.location.state.recipe);
   }
 
@@ -77,11 +93,26 @@ export default class Recipe extends Component {
     }
   }
 
+  getCreatedByTag() {
+    if(this.state.recipe.id) {
+      if(this.state.createdByUser) {
+        return <div>Created by user { this.state.createdByUser.username }</div>
+      }
+      else {
+        return <div>Created by an OpenRecipe user</div>
+      }
+    }
+    else {
+      return <div>Edamam recipe</div>
+    }
+  }
+
   render() {
     return (<div className="row">
       <div className="col-8">
         <div className="container-fluid">
           <h1>{this.state.recipe.label}</h1>
+          <div>{ this.getCreatedByTag() }</div>
           <div>
             <ul className="nav nav-tabs">
               <li className="nav-item recipe-tab" onClick={this.overviewSelected}>
