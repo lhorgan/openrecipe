@@ -14,16 +14,22 @@ class Admin extends Component {
     };
 
     this.userService = UserService.instance;
+
+    this.updateUsers = this.updateUsers.bind(this);
   }
 
   componentDidMount() {
     this.userService.subscribeToUser(user => this.setState({user}));
+    this.updateUsers();
+  }
+
+  updateUsers() {
     this.userService.findAllUsers()
                     .then(users => {
                       console.log("here are the users");
                       console.log(users);
                       this.setState({users: users});
-                    })
+                    });
   }
 
   render() {
@@ -41,7 +47,9 @@ class Admin extends Component {
             </thead>
             <tbody>
             {this.state.users.map((user, idx) => {
-              return <UserEntry user={user} key={idx} />
+              return <UserEntry user={user}
+                                updateUsers={this.updateUsers}
+                                key={idx} />
             })}
             </tbody>
           </table>

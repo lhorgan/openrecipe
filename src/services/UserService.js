@@ -110,6 +110,17 @@ export default class UserService {
       }
     }
 
+    saveUser(userId, user) {
+      return fetch(USER_API_URL + "/" + userId, {
+        method: 'put',
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      });
+    }
+
     findAllUsers() {
       console.log("fetching all users");
       return fetch(USER_API_URL, {credentials: "include"})

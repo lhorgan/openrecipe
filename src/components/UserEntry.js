@@ -9,15 +9,18 @@ class UserEntry extends Component {
 
     this.state = {
       user: null,
+      updateUsers: null
     };
 
     this.userService = UserService.instance;
     this.handleAdminCheck = this.handleAdminCheck.bind(this);
     this.handleChefCheck = this.handleChefCheck.bind(this);
+    this.saveUser = this.saveUser.bind(this);
   }
 
   componentDidMount() {
     this.setState({user: this.props.user});
+    this.setState({updateUsers: this.props.updateUsers});
   }
 
   handleAdminCheck(evt) {
@@ -27,6 +30,15 @@ class UserEntry extends Component {
 
   handleChefCheck(evt) {
     this.setState({user: {...this.state.user, chef: !this.state.user.chef}});
+  }
+
+  saveUser() {
+    this.userService.saveUser(this.state.user.id, this.state.user)
+                    .then(() => {
+                      if(typeof(this.state.updateUsers === "function")) {
+                        this.state.updateUsers();
+                      }
+                    });
   }
 
   render() {
@@ -40,6 +52,9 @@ class UserEntry extends Component {
            </td>
            <td>
             <input type="checkbox" checked={ this.state.user.chef } onChange={this.handleChefCheck} />
+           </td>
+           <td>
+            <div onClick={this.saveUser}>Save</div>
            </td>
         </tr>)
     }
