@@ -6,6 +6,7 @@ import Login from './containers/Login'
 import Register from './containers/Register'
 import Profile from './containers/Profile'
 import SearchRecipe from './containers/SearchRecipe'
+import Admin from './containers/Admin'
 
 class App extends Component {
   render() {
@@ -26,6 +27,9 @@ class App extends Component {
           </Route>
           <Route path="/recipe"
             component={SearchRecipe}>
+          </Route>
+          <Route path="/admin"
+            component={Admin}>
           </Route>
         </div>
       </Router>
