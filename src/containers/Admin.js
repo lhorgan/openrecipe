@@ -31,9 +31,20 @@ class Admin extends Component {
       return (
         <div>
           <h1>Hello, user {this.state.user.id}: {this.state.user.username}!</h1>
-          {this.state.users.map((user, idx) => {
-            return <UserEntry user={user} key={idx} />
-          })}
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Admin?</th>
+                <th>Chef?</th>
+              </tr>
+            </thead>
+            <tbody>
+            {this.state.users.map((user, idx) => {
+              return <UserEntry user={user} key={idx} />
+            })}
+            </tbody>
+          </table>
         </div>
       )
     }
