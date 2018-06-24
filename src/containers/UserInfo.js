@@ -28,7 +28,7 @@ class UserInfo extends Component {
               <ul className="list-group mb-2">
                 <li className="list-group-item text-muted">Profile</li>
                 <li className="list-group-item text-right"><span className="pull-left"><strong>Joined</strong></span>never</li>
-                <li className="list-group-item text-right"><span className="pull-left"><strong>Real name</strong></span>boop</li>
+                <li className="list-group-item text-right"><span className="pull-left"><strong>Name</strong></span>boop</li>
               </ul>
               <ul className="list-group">
                 <li className="list-group-item text-muted">Activity <i className="fa fa-dashboard fa-1x" />

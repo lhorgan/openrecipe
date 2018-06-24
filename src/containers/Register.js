@@ -9,7 +9,9 @@ class Register extends React.Component {
     this.state = {
       user: {
         username: '',
-        password: ''
+        password: '',
+        firstName: '',
+        lastName: ''
       },
       verifiedPassword: ''
     };
@@ -17,19 +19,31 @@ class Register extends React.Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleVerifyPassword = this.handleVerifyPassword.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.registerUser = this.registerUser.bind(this);
     this.userService = UserService.instance;
     this.isEmpty = this.isEmpty.bind(this);
   }
 
+  handleFirstNameChange(event) {
+    this.setState({user: {...this.state.user, firstName: event.target.value}});
+    console.log(this.state.user);
+  }
+
+  handleLastNameChange(event) {
+    this.setState({user: {...this.state.user, lastName: event.target.value}});
+    console.log(this.state.user);
+  }
+
   handleUsernameChange(event) {
     this.setState({user: {...this.state.user, username: event.target.value}});
-    console.log(this.state.user)
+    console.log(this.state.user);
   }
 
   handlePasswordChange(event) {
     this.setState({user: {...this.state.user, password: event.target.value}});
-    console.log(this.state.user)
+    console.log(this.state.user);
   }
 
   handleVerifyPassword(event) {
@@ -74,6 +88,22 @@ class Register extends React.Component {
     return (
       <div className="container-fluid">
         <h1>Register</h1>
+          <div>
+            <form>
+              <label>
+                First Name:
+                <input className="form-control" value={this.state.user.firstName} onChange={this.handleFirstNameChange} />
+              </label>
+            </form>
+          </div>
+          <div>
+            <form>
+              <label>
+                Last Name:
+                <input className="form-control" value={this.state.user.lastName} onChange={this.handleLastNameChange} />
+              </label>
+            </form>
+          </div>
         <div>
           <form>
             <label>

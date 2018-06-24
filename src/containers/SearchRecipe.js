@@ -3,12 +3,13 @@ import '../styles/SearchRecipe.css';
 
 import RecipeService from '../services/RecipeService'
 import ReviewList from "./ReviewList"
+import UserService from '../services/UserService'
 
 export default class Recipe extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {recipe: {}, tabView: '', createdByUser: null};
+    this.state = {recipe: {}, tabView: '', createdByUser: null, user: null};
 
     this.recipeService = RecipeService.instance;
 
@@ -17,12 +18,15 @@ export default class Recipe extends Component {
     this.reviewsSelected = this.reviewsSelected.bind(this);
     this.overviewSelected = this.overviewSelected.bind(this);
     this.getCreatedByTag = this.getCreatedByTag.bind(this);
+    this.userService = UserService.instance;
+    this.renderEndorseButton = this.renderEndorseButton.bind(this);
   }
 
   componentDidMount() {
     let recipe = this.props.location.state.recipe;
     this.setState({recipe: recipe});
-    this.setState({tabView: 'overview'})
+    this.setState({tabView: 'overview'});
+    this.userService.subscribeToUser(user => this.setState({user}));
 
     if(recipe.id) {
       this.recipeService.getCreatedByUser(recipe.id)
@@ -107,12 +111,22 @@ export default class Recipe extends Component {
     }
   }
 
+  renderEndorseButton() {
+    console.log(this.state.user);
+    if(this.state.user && this.state.user.chef) {
+      return <button className="btn btn-primary">Endorse this recipe!</button>
+    }
+  }
+
   render() {
     return (<div className="row">
       <div className="col-8">
         <div className="container-fluid">
           <h1>{this.state.recipe.label}</h1>
           <div>{ this.getCreatedByTag() }</div>
+          <div>
+            {this.renderEndorseButton()}
+          </div>
           <div>
             <ul className="nav nav-tabs">
               <li className="nav-item recipe-tab" onClick={this.overviewSelected}>
@@ -138,7 +152,6 @@ export default class Recipe extends Component {
             </ul>
 
             {this.showTab()}
-
           </div>
         </div>
       </div>

@@ -182,14 +182,31 @@ export default class RecipeService {
              });
     }
 
-    endorseRecipe(recipeId) {
+    endorseRecipe(recipeId, recipeURI) {
       let url = BASE_URL + "/api/recipe/" + recipeId + "/endorse";
-      return fetch(url, {credentials: "include"})
-             .then(resp => resp.json())
-             .then(user => {
-               console.log(user);
-               console.log("endorsed recipe!");
-               return user;
-             });
+      if(recipeId) {
+        return fetch(url, {
+            method: "put",
+            headers: {
+              'Content-Type' : 'application/json'
+            },
+            credentials: "include"
+          })
+          .then(resp => resp.json())
+          .then(user => {
+            console.log(user);
+            console.log("endorsed recipe!");
+            return user;
+          });
+      }
+      else if(recipeURI) {
+        console.log("this recipe hasn't got an id yet :(");
+        return this.createRecipe({"uri": recipeURI})
+            .then(recipe => {
+              console.log("here's the recipe we got back....");
+              console.log(recipe);
+              return this.endorseRecipe(recipe.id, null);
+            });
+      }
     }
 }
