@@ -184,16 +184,12 @@ export default class RecipeService {
 
     getEndorsedByUsers(recipeId) {
       let url = BASE_URL + "/api/recipe/" + recipeId + "/endorsedBy"
-      if (recipeId) {
-        return fetch(url).then(resp => resp.json())
-                         .then(endorsedByUsers => {
-                           console.log("all of these people endorsed this recipe!");
-                           console.log(endorsedByUsers);
-                           return endorsedByUsers;
-                         })
-      } else {
-        return [];
-      }
+      return fetch(url).then(resp => resp.json())
+                       .then(endorsedByUsers => {
+                         console.log("all of these people endorsed this recipe!");
+                         console.log(endorsedByUsers);
+                         return endorsedByUsers;
+                       });
     }
 
     endorseRecipe(recipeId, recipeURI) {

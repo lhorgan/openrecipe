@@ -144,12 +144,14 @@ export default class Recipe extends Component {
   }
 
   getEndorsedByUsers() {
-    this.recipeService.getEndorsedByUsers(this.state.recipe.id)
-                      .then(endorsedByUsers => {
-                        console.log("in searchRecipe, these people endorsed me");
-                        console.log(endorsedByUsers);
-                        this.setState({endorsedByUsers});
-                      });
+    if (this.state.recipe.id) {
+      this.recipeService.getEndorsedByUsers(this.state.recipe.id)
+                        .then(endorsedByUsers => {
+                          console.log("in searchRecipe, these people endorsed me");
+                          console.log(endorsedByUsers);
+                          this.setState({endorsedByUsers});
+                        });
+    }    
   }
 
   endorseRecipe() {
