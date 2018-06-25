@@ -9,7 +9,7 @@ export default class Recipe extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {recipe: {}, tabView: '', createdByUser: null, user: null};
+    this.state = {recipe: {}, tabView: '', createdByUser: null, user: null, endorsed: false, saved: false};
 
     this.recipeService = RecipeService.instance;
 
@@ -20,13 +20,31 @@ export default class Recipe extends Component {
     this.getCreatedByTag = this.getCreatedByTag.bind(this);
     this.userService = UserService.instance;
     this.renderEndorseButton = this.renderEndorseButton.bind(this);
+    this.endorseRecipe = this.endorseRecipe.bind(this);
+    this.saveRecipe = this.saveRecipe.bind(this);
   }
 
   componentDidMount() {
     let recipe = this.props.location.state.recipe;
     this.setState({recipe: recipe});
     this.setState({tabView: 'overview'});
-    this.userService.subscribeToUser(user => this.setState({user}));
+    this.userService.subscribeToUser(user => {
+      for(let i = 0; i < user.savedRecipes.length; i++) {
+        if((recipe.id && (user.savedRecipes[i].id === recipe.id)) ||
+           (recipe.uri && (user.savedRecipes[i].uri === recipe.uri))) {
+          this.setState({saved: true});
+          break;
+        }
+      }
+      for(let i = 0; i < user.endorsedRecipes.length; i++) {
+        if((recipe.id && (user.endorsedRecipes[i].id === recipe.id)) ||
+           (recipe.uri && (user.endorsedRecipes[i].uri === recipe.uri))) {
+          this.setState({endorsed: true});
+          break;
+        }
+      }
+      this.setState({user});
+    });
 
     if(recipe.id) {
       this.recipeService.getCreatedByUser(recipe.id)
@@ -111,10 +129,51 @@ export default class Recipe extends Component {
     }
   }
 
+  endorseRecipe() {
+    this.recipeService.endorseRecipe(this.state.recipe.id, this.state.recipe.uri)
+                      .then(recipe => {
+                        console.log("we have endorsed something");
+                        console.log(recipe);
+                        this.setState({endorsed: true});
+                      });
+  }
+
+  saveRecipe() {
+    this.recipeService.saveRecipe(this.state.recipe.id, this.state.recipe.uri)
+                      .then(recipe => {
+                        console.log("we have saved something");
+                        console.log(recipe);
+                        this.setState({saved: true});
+                      });
+  }
+
   renderEndorseButton() {
     console.log(this.state.user);
     if(this.state.user && this.state.user.chef) {
-      return <button className="btn btn-primary">Endorse this recipe!</button>
+      if(!this.state.endorsed) {
+        return (
+          <button className="btn btn-primary"
+                  onClick={this.endorseRecipe}>Endorse this recipe!</button>
+        )
+      }
+      else {
+        return (<button className="btn btn-primary disabled">Endorsed!</button>)
+      }
+    }
+  }
+
+  renderSaveButton() {
+    console.log(this.state.user);
+    if(this.state.user) {
+      if(!this.state.saved) {
+        return (
+          <button className="btn btn-primary"
+                  onClick={this.saveRecipe}>Save this recipe!</button>
+        )
+      }
+      else {
+        return (<button className="btn btn-primary disabled">Saved!</button>)
+      }
     }
   }
 
@@ -126,6 +185,7 @@ export default class Recipe extends Component {
           <div>{ this.getCreatedByTag() }</div>
           <div>
             {this.renderEndorseButton()}
+            {this.renderSaveButton()}
           </div>
           <div>
             <ul className="nav nav-tabs">

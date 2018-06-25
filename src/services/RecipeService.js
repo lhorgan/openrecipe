@@ -187,9 +187,6 @@ export default class RecipeService {
       if(recipeId) {
         return fetch(url, {
             method: "put",
-            headers: {
-              'Content-Type' : 'application/json'
-            },
             credentials: "include"
           })
           .then(resp => resp.json())
@@ -206,6 +203,31 @@ export default class RecipeService {
               console.log("here's the recipe we got back....");
               console.log(recipe);
               return this.endorseRecipe(recipe.id, null);
+            });
+      }
+    }
+
+    saveRecipe(recipeId, recipeURI) {
+      let url = BASE_URL + "/api/recipe/" + recipeId + "/save";
+      if(recipeId) {
+        return fetch(url, {
+            method: "put",
+            credentials: "include"
+          })
+          .then(resp => resp.json())
+          .then(user => {
+            console.log(user);
+            console.log("save recipe!");
+            return user;
+          });
+      }
+      else if(recipeURI) {
+        console.log("this recipe hasn't got an id yet :(");
+        return this.createRecipe({"uri": recipeURI})
+            .then(recipe => {
+              console.log("here's the recipe we got back....");
+              console.log(recipe);
+              return this.saveRecipe(recipe.id, null);
             });
       }
     }
