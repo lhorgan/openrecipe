@@ -57,30 +57,32 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h1>Login</h1>
-        <form>
-          <label>
-            Username:
-            <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
-          </label>
-        </form>
-        <form>
-          <label>
-            Password:
-            <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
-          </label>
-        </form>
-          <button onClick={this.loginUser} className="btn btn-primary btn-block" type="button">
-            Sign In
-          </button>
+      <div>
+          <div className="container">
+            <h1>Login</h1>
+            <form>
+              <label>
+                Username:
+                <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
+              </label>
+            </form>
+            <form>
+              <label>
+                Password:
+                <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
+              </label>
+            </form>
+              <button onClick={this.loginUser} className="btn btn-primary btn-block" type="button">
+                Sign In
+              </button>
 
-        <Link to={`/register`}>
-          Register
-        </Link>
-        <Link to={`/`} className="float-right">
-          Home
-        </Link>
+            <Link to={`/register`}>
+              Register
+            </Link>
+            <Link to={`/`} className="float-right">
+              Home
+            </Link>
+          </div>
       </div>
     )
   }

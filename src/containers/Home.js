@@ -10,7 +10,7 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <NavBar/>
+        <NavBar />
         <div className="jumbotron jumbotron-fluid">
           <div className="container">
             <h1 className="display-4">OpenRecipe</h1>

@@ -3,6 +3,7 @@ import CreateRecipeModal from '../components/CreateRecipeModal';
 
 import UserService from '../services/UserService'
 import UserEntry from '../components/UserEntry'
+import NavBar from '../components/NavBar'
 
 class Admin extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class Admin extends Component {
     if(this.state.user && this.state.user.admin) {
       return (
         <div>
+          <NavBar/>
           <h1>Hello, user {this.state.user.id}: {this.state.user.username}!</h1>
           <table>
             <thead>

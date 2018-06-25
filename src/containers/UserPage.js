@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import UserService from '../services/UserService'
 import UserInfo from './UserInfo'
+import NavBar from '../components/NavBar'
 
 export default class UserPage extends Component {
   constructor(props) {
@@ -59,12 +60,15 @@ export default class UserPage extends Component {
     if(this.state.user) {
       console.log(this.state.user);
       return (
-        <div className="container">
-          <div className="row">
-            User: {this.state.user.username}
-            {this.getFollowButton()}
+        <div>
+          <NavBar/>
+          <div className="container">
+            <div className="row">
+              User: {this.state.user.username}
+              {this.getFollowButton()}
+            </div>
+            <UserInfo user={this.state.user} />
           </div>
-          <UserInfo user={this.state.user} />
         </div>
       )
     }

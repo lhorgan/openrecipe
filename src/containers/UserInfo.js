@@ -18,11 +18,12 @@ class UserInfo extends Component {
 
   componentDidMount() {
     this.userService.subscribeToUser(loggedIn => this.setState({loggedIn}));
-    this.setState({user: this.props.user});
-
-    // this.userService.getFollowings(followings => {
-    //
-    // })
+    this.setState({user: this.props.user}, () => {
+      this.userService.getFollowings(this.state.user.id)
+                      .then(followings => this.setState({followings}));
+      this.userService.getFollowers(this.state.user.id)
+                      .then(followers=> this.setState({followers}));
+    });
   }
 
   render() {

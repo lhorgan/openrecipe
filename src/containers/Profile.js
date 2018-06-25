@@ -44,7 +44,7 @@ class Profile extends Component {
     if(this.state.user) {
       return (
         <div>
-          <NavBar user={this.state.user}/>
+          <NavBar/>
           <div className="container">
             <div className="row">
               <h1>Hello, user {this.state.user.id}: {this.state.user.username}!</h1>

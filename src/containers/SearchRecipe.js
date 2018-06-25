@@ -5,12 +5,17 @@ import RecipeService from '../services/RecipeService'
 import ReviewList from "./ReviewList"
 import UserService from '../services/UserService'
 import NavBar from '../components/NavBar'
+import { Link } from 'react-router-dom'
 
 export default class Recipe extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {recipe: {}, tabView: '', createdByUser: null, user: null, endorsed: false, saved: false};
+    this.state = {
+      recipe: {}, tabView: '', createdByUser: null,
+      user: null, endorsed: false, saved: false,
+      endorsedByUsers: []
+    };
 
     this.recipeService = RecipeService.instance;
 
@@ -25,11 +30,12 @@ export default class Recipe extends Component {
     this.saveRecipe = this.saveRecipe.bind(this);
     this.renderPrivatizeButton = this.renderPrivatizeButton.bind(this);
     this.togglePrivate = this.togglePrivate.bind(this);
+    this.getEndorsedByUsers = this.getEndorsedByUsers.bind(this);
   }
 
   componentDidMount() {
     let recipe = this.props.location.state.recipe;
-    this.setState({recipe: recipe});
+    this.setState({recipe: recipe}, this.getEndorsedByUsers);
     this.setState({tabView: 'overview'});
     this.userService.subscribeToUser(user => {
       for(let i = 0; i < user.savedRecipes.length; i++) {
@@ -121,7 +127,12 @@ export default class Recipe extends Component {
   getCreatedByTag() {
     if(this.state.recipe.id) {
       if(this.state.createdByUser) {
-        return <div>Created by user { this.state.createdByUser.username }</div>
+        return (
+          <div>Created by user
+            <Link to={`/user/${this.state.createdByUser.id}`}> { this.state.createdByUser.username }
+            </Link>
+          </div>
+        )
       }
       else {
         return <div>Created by an OpenRecipe user</div>
@@ -132,6 +143,15 @@ export default class Recipe extends Component {
     }
   }
 
+  getEndorsedByUsers() {
+    this.recipeService.getEndorsedByUsers(this.state.recipe.id)
+                      .then(endorsedByUsers => {
+                        console.log("in searchRecipe, these people endorsed me");
+                        console.log(endorsedByUsers);
+                        this.setState({endorsedByUsers});
+                      });
+  }
+
   endorseRecipe() {
     this.recipeService.endorseRecipe(this.state.recipe.id, this.state.recipe.uri)
                       .then(user => {
@@ -139,6 +159,7 @@ export default class Recipe extends Component {
                         console.log(user);
                         this.setState({endorsed: true});
                         this.userService.updateUser(user);
+                        this.getEndorsedByUsers();
                       });
   }
 
@@ -216,11 +237,15 @@ export default class Recipe extends Component {
   render() {
     return (
       <div>
-        <NavBar user={this.state.user}/><div className="row">
+        <NavBar/>
+        <div className="row">
         <div className="col-8">
           <div className="container-fluid">
             <h1>{this.state.recipe.label}</h1>
-            <div>{ this.getCreatedByTag() }</div>
+            <div>
+              { this.getCreatedByTag() }
+              <span className="pull-right">Endorsed by {this.state.endorsedByUsers.length} users</span>
+            </div>
             <div>
               {this.renderEndorseButton()}
               {this.renderSaveButton()}

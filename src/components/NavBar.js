@@ -1,17 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import UserService from '../services/UserService'
 
 export default class NavBar extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {"user": null};
+
     this.profileOrLogin = this.profileOrLogin.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.userService = UserService.instance;
+  }
+
+  componentDidMount() {
+    this.userService.subscribeToUser(user => this.setState({user}));
   }
 
   profileOrLogin() {
-    if (this.props.user) {
+    if (this.state.user) {
       return (
-        <Link to={`/profile`}>Hi, {this.props.user.username}</Link>
+        <Link to={`/profile`}>Hi, {this.state.user.username}</Link>
       );
     } else {
       return (
