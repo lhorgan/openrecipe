@@ -231,4 +231,17 @@ export default class RecipeService {
             });
       }
     }
+
+    togglePrivatizeRecipe(recipeId) {
+      let url = BASE_URL + "/api/recipe/" + recipeId + "/privatize";
+      return fetch(url, {
+        method: 'put',
+        credentials: "include"
+      })
+      .then(resp => resp.json())
+      .then(recipe => {
+        console.log(recipe);
+        return recipe;
+      })
+    }
 }

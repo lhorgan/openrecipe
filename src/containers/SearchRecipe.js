@@ -4,6 +4,7 @@ import '../styles/SearchRecipe.css';
 import RecipeService from '../services/RecipeService'
 import ReviewList from "./ReviewList"
 import UserService from '../services/UserService'
+import NavBar from '../components/NavBar'
 
 export default class Recipe extends Component {
 
@@ -22,6 +23,8 @@ export default class Recipe extends Component {
     this.renderEndorseButton = this.renderEndorseButton.bind(this);
     this.endorseRecipe = this.endorseRecipe.bind(this);
     this.saveRecipe = this.saveRecipe.bind(this);
+    this.renderPrivatizeButton = this.renderPrivatizeButton.bind(this);
+    this.togglePrivate = this.togglePrivate.bind(this);
   }
 
   componentDidMount() {
@@ -147,6 +150,15 @@ export default class Recipe extends Component {
                       });
   }
 
+  togglePrivate() {
+    this.recipeService.togglePrivatizeRecipe(this.state.recipe.id)
+                      .then(recipe => {
+                        console.log("this should be the opposite of what it was before");
+                        console.log(recipe);
+                        this.setState({recipe});
+                      })
+  }
+
   renderEndorseButton() {
     console.log(this.state.user);
     if(this.state.user && this.state.user.chef) {
@@ -177,41 +189,64 @@ export default class Recipe extends Component {
     }
   }
 
-  render() {
-    return (<div className="row">
-      <div className="col-8">
-        <div className="container-fluid">
-          <h1>{this.state.recipe.label}</h1>
-          <div>{ this.getCreatedByTag() }</div>
-          <div>
-            {this.renderEndorseButton()}
-            {this.renderSaveButton()}
-          </div>
-          <div>
-            <ul className="nav nav-tabs">
-              <li className="nav-item recipe-tab" onClick={this.overviewSelected}>
-                <div className="nav-link active">
-                  Overview
-                </div>
-              </li>
-              <li className="nav-item recipe-tab" onClick={this.ingredientsSelected}>
-                <div className="nav-link active">
-                  Ingredients
-                </div>
-              </li>
-              <li className="nav-item recipe-tab" onClick={this.nutrientsSelected}>
-                <div className="nav-link active">
-                  Nutrition Info
-                </div>
-              </li>
-              <li className="nav-item recipe-tab" onClick={this.reviewsSelected}>
-                <div className="nav-link active">
-                  Reviews
-                </div>
-              </li>
-            </ul>
+  renderPrivatizeButton() {
+    //alert("grr");
+    alert("FUCK FUCK FUCK FUCK FUCK");
+    if(this.state.user && this.state.user.reputable) {
+      //alert("we need a privatize button here");
+      console.log("we maybe wanna make the following recipe private");
+      alert("196");
+      console.log(this.state.recipe);
+      if (this.state.recipe) {
+        alert("199");
+        if (this.state.recipe.private) {
+          return <button className="btn btn-danger" onClick={this.togglePrivate}>Make public</button>
+        } else {
+          return <button className="btn btn-danger" onClick={this.togglePrivate}>Make Private</button>
+        }
+      }
 
-            {this.showTab()}
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar user={this.state.user}/><div className="row">
+        <div className="col-8">
+          <div className="container-fluid">
+            <h1>{this.state.recipe.label}</h1>
+            <div>{ this.getCreatedByTag() }</div>
+            <div>
+              {this.renderEndorseButton()}
+              {this.renderSaveButton()}
+              {this.renderPrivatizeButton()}
+            </div>
+            <div>
+              <ul className="nav nav-tabs">
+                <li className="nav-item recipe-tab" onClick={this.overviewSelected}>
+                  <div className="nav-link active">
+                    Overview
+                  </div>
+                </li>
+                <li className="nav-item recipe-tab" onClick={this.ingredientsSelected}>
+                  <div className="nav-link active">
+                    Ingredients
+                  </div>
+                </li>
+                <li className="nav-item recipe-tab" onClick={this.nutrientsSelected}>
+                  <div className="nav-link active">
+                    Nutrition Info
+                  </div>
+                </li>
+                <li className="nav-item recipe-tab" onClick={this.reviewsSelected}>
+                  <div className="nav-link active">
+                    Reviews
+                  </div>
+                </li>
+              </ul>
+              {this.showTab()}
+            </div>
           </div>
         </div>
       </div>
