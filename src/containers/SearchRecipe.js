@@ -134,19 +134,21 @@ export default class Recipe extends Component {
 
   endorseRecipe() {
     this.recipeService.endorseRecipe(this.state.recipe.id, this.state.recipe.uri)
-                      .then(recipe => {
+                      .then(user => {
                         console.log("we have endorsed something");
-                        console.log(recipe);
+                        console.log(user);
                         this.setState({endorsed: true});
+                        this.userService.updateUser(user);
                       });
   }
 
   saveRecipe() {
     this.recipeService.saveRecipe(this.state.recipe.id, this.state.recipe.uri)
-                      .then(recipe => {
+                      .then(user => {
                         console.log("we have saved something");
-                        console.log(recipe);
+                        console.log(user);
                         this.setState({saved: true});
+                        this.userService.updateUser(user);
                       });
   }
 
@@ -191,14 +193,15 @@ export default class Recipe extends Component {
 
   renderPrivatizeButton() {
     //alert("grr");
-    alert("FUCK FUCK FUCK FUCK FUCK");
+    //alert("FUCK FUCK FUCK FUCK FUCK");
+    console.log("FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCCCCCCCCCCCCCCCCCCCK");
     if(this.state.user && this.state.user.reputable) {
       //alert("we need a privatize button here");
       console.log("we maybe wanna make the following recipe private");
-      alert("196");
+      //alert("196");
       console.log(this.state.recipe);
       if (this.state.recipe) {
-        alert("199");
+        //alert("199");
         if (this.state.recipe.private) {
           return <button className="btn btn-danger" onClick={this.togglePrivate}>Make public</button>
         } else {
