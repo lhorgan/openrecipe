@@ -16,21 +16,20 @@ export default class UserPage extends Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     this.setState({userId: userId});
-    this.userService.subscribeToUser(loggedIn => this.setState({loggedIn}));
+
     this.userService.findUserById(userId)
-                    .then(user => {
-                      this.setState({user: user}, () => {
-                        this.userService.getFollowings()
-                            .then(following => {
-                              for(let i = 0; i < following.length; i++) {
-                                console.log(following[i] + ", " + following[i].id + ", " + this.state.user.id);
-                                if(following[i].id === this.state.user.id) {
-                                  this.setState({"following": true});
-                                }
-                              }
-                            });
-                      });
-                    });
+                    .then(user => this.setState({user: user}, () => {
+                      this.userService.subscribeToUser(loggedIn => this.setState({loggedIn}, () => {
+                        this.userService.getFollowings(this.state.loggedIn.id)
+                                        .then(following => {
+                                          console.log(following);
+                                          for(let i = 0; i < following.length; i++) {
+                                            if(following[i].id === this.state.user.id) {
+                                              this.setState({"following": true});
+                                            }
+                                          }
+                                        });
+                      }))}));
   }
 
   followUser() {

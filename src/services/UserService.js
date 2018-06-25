@@ -168,8 +168,19 @@ export default class UserService {
       })
     }
 
-    getFollowings() {
-      return fetch(USER_API_URL + "/following/list", {
+    getFollowings(uid) {
+      return fetch(USER_API_URL + "/" + uid + "/following/list", {
+        credentials: "include"
+      })
+      .then(resp => resp.json())
+      .then(following => {
+        console.log(following);
+        return following;
+      })
+    }
+
+    getFollowers(uid) {
+      return fetch(USER_API_URL + "/" + uid + "/followers/list", {
         credentials: "include"
       })
       .then(resp => resp.json())
