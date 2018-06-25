@@ -182,14 +182,27 @@ export default class RecipeService {
              });
     }
 
-    getEndorsedByUsers(recipeId) {
-      let url = BASE_URL + "/api/recipe/" + recipeId + "/endorsedBy"
-      return fetch(url).then(resp => resp.json())
-                       .then(endorsedByUsers => {
-                         console.log("all of these people endorsed this recipe!");
-                         console.log(endorsedByUsers);
-                         return endorsedByUsers;
-                       });
+    getEndorsedByUsers(recipeId, recipeURI) {
+      if(recipeId) {
+        let url = BASE_URL + "/api/recipe/" + recipeId + "/endorsedBy"
+        return fetch(url).then(resp => resp.json())
+                         .then(endorsedByUsers => {
+                           console.log("all of these people endorsed this recipe!");
+                           console.log(endorsedByUsers);
+                           return endorsedByUsers;
+                         });
+      }
+      else if(recipeURI) {
+        return this.getRecipeByURI(recipeURI)
+                   .then(recipe => {
+                     if(recipe) {
+                       return this.getEndorsedByUsers(recipe.id);
+                     }
+                     else {
+                       return null;
+                     }
+                   });
+      }
     }
 
     endorseRecipe(recipeId, recipeURI) {
@@ -252,6 +265,21 @@ export default class RecipeService {
       .then(recipe => {
         console.log(recipe);
         return recipe;
+      })
+    }
+
+    getRecipeByURI(recipeURI) {
+      let url = BASE_URL + "/api/recipe/uri/?uri=" + encodeURIComponent(recipeURI);
+      return fetch(url, {
+        credentials: "include"
+      })
+      .then(resp => resp.json())
+      .then(recipe => {
+        console.log(recipe);
+        return recipe;
+      })
+      .catch(err => {
+        return null;
       })
     }
 }

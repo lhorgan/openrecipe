@@ -144,14 +144,12 @@ export default class Recipe extends Component {
   }
 
   getEndorsedByUsers() {
-    if (this.state.recipe.id) {
-      this.recipeService.getEndorsedByUsers(this.state.recipe.id)
-                        .then(endorsedByUsers => {
-                          console.log("in searchRecipe, these people endorsed me");
-                          console.log(endorsedByUsers);
-                          this.setState({endorsedByUsers});
-                        });
-    }    
+    this.recipeService.getEndorsedByUsers(this.state.recipe.id, this.state.recipe.uri)
+                      .then(endorsedByUsers => {
+                        console.log("in searchRecipe, these people endorsed me");
+                        console.log(endorsedByUsers);
+                        this.setState({endorsedByUsers});
+                      });
   }
 
   endorseRecipe() {
@@ -246,7 +244,7 @@ export default class Recipe extends Component {
             <h1>{this.state.recipe.label}</h1>
             <div>
               { this.getCreatedByTag() }
-              <span className="pull-right">Endorsed by {this.state.endorsedByUsers.length} users</span>
+              <span className="pull-right">Endorsed by {this.state.endorsedByUsers.length} user(s)</span>
             </div>
             <div>
               {this.renderEndorseButton()}
