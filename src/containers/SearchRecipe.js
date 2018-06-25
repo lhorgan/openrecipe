@@ -55,21 +55,23 @@ export default class Recipe extends Component {
         this.getEndorsedByUsers();
         this.setState({tabView: 'overview'});
         this.userService.subscribeToUser(user => {
-          for(let i = 0; i < user.savedRecipes.length; i++) {
-            if((recipe.id && (user.savedRecipes[i].id === recipe.id)) ||
-               (recipe.uri && (user.savedRecipes[i].uri === recipe.uri))) {
-              this.setState({saved: true});
-              break;
+          if(user && user.savedRecipes) {
+            for(let i = 0; i < user.savedRecipes.length; i++) {
+              if((recipe.id && (user.savedRecipes[i].id === recipe.id)) ||
+                 (recipe.uri && (user.savedRecipes[i].uri === recipe.uri))) {
+                this.setState({saved: true});
+                break;
+              }
             }
-          }
-          for(let i = 0; i < user.endorsedRecipes.length; i++) {
-            if((recipe.id && (user.endorsedRecipes[i].id === recipe.id)) ||
-               (recipe.uri && (user.endorsedRecipes[i].uri === recipe.uri))) {
-              this.setState({endorsed: true});
-              break;
+            for(let i = 0; i < user.endorsedRecipes.length; i++) {
+              if((recipe.id && (user.endorsedRecipes[i].id === recipe.id)) ||
+                 (recipe.uri && (user.endorsedRecipes[i].uri === recipe.uri))) {
+                this.setState({endorsed: true});
+                break;
+              }
             }
+            this.setState({user});
           }
-          this.setState({user});
         });
 
         if(recipe.id) {
