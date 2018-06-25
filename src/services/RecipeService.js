@@ -271,6 +271,10 @@ export default class RecipeService {
         console.log(recipe);
         return recipe;
       })
+      .catch(err => {
+        alert(err);
+        return {};
+      });
     }
 
     getRecipeByURI(recipeURI) {

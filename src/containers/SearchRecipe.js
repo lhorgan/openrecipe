@@ -234,9 +234,6 @@ export default class Recipe extends Component {
   }
 
   renderPrivatizeButton() {
-    //alert("grr");
-    //alert("FUCK FUCK FUCK FUCK FUCK");
-    //alert("HAHAHAHAAHA");
     if(this.state.user && this.state.user.reputable && this.state.recipe.id) {
       if(this.state.createdByUser && this.state.user.id === this.state.createdByUser.id) {
         //alert("we need a privatize button here");
@@ -244,7 +241,7 @@ export default class Recipe extends Component {
         //alert("196");
         console.log(this.state.recipe);
         if (this.state.recipe) {
-          //alert("199");
+          //alert("199");``
           if (this.state.recipe.private) {
             return <button className="btn btn-danger" onClick={this.togglePrivate}>Make public</button>
           } else {
