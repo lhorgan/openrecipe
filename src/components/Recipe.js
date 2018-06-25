@@ -57,10 +57,11 @@ class Recipe extends Component {
   }
 
   render() {
-    return (<div>
+    /*return (<div>
       This is a recipe!
       <button onClick={this.createRecipe}>PLEASE CLICK ME FOR FOOD!!!</button>
-    </div>)
+    </div>)*/
+    return <div></div>
   }
 }
 

@@ -13,6 +13,7 @@ export default class Recipe extends Component {
     super(props)
     this.state = {
       recipe: {}, tabView: '', createdByUser: null,
+      recipeId: null,
       user: null, endorsed: false, saved: false,
       endorsedByUsers: []
     };
@@ -31,9 +32,12 @@ export default class Recipe extends Component {
     this.renderPrivatizeButton = this.renderPrivatizeButton.bind(this);
     this.togglePrivate = this.togglePrivate.bind(this);
     this.getEndorsedByUsers = this.getEndorsedByUsers.bind(this);
+    this.getRecipe = null;
+    this.loadRecipeFromServer = this.loadRecipeFromServer.bind(this);
   }
 
   componentDidMount() {
+    this.setState({tabView: 'overview'});
     //alert("component mounted");
     let recipeId = this.props.match.params.id;
     //alert(recipeId);
@@ -47,13 +51,17 @@ export default class Recipe extends Component {
       recipeId = decodeURIComponent(recipeId);
       getRecipe = this.recipeService.getRecipe;
     }
+    this.setState({recipeId: recipeId});
+    this.getRecipe = getRecipe;
+    this.loadRecipeFromServer(recipeId);
+  }
 
-    getRecipe(recipeId).then(recipe => {
+  loadRecipeFromServer(recipeId) {
+    this.getRecipe(recipeId).then(recipe => {
       //alert(JSON.stringify(recipe));
       this.setState({recipe: recipe}, () => {
         //alert(this.state.recipe.id + " , " + this.state.recipe.uri);
         this.getEndorsedByUsers();
-        this.setState({tabView: 'overview'});
         this.userService.subscribeToUser(user => {
           if(user && user.savedRecipes) {
             for(let i = 0; i < user.savedRecipes.length; i++) {
@@ -199,7 +207,8 @@ export default class Recipe extends Component {
                       .then(recipe => {
                         console.log("this should be the opposite of what it was before");
                         console.log(recipe);
-                        this.setState({recipe});
+                        this.loadRecipeFromServer(this.state.recipe.id);
+                        //this.setState({recipe});
                       })
   }
 
