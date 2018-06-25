@@ -42,7 +42,7 @@ export default class Recipe extends Component {
     }
     //alert("component mounted");
     let getRecipe = this.recipeService.getRecipeByID;
-    alert(parseInt(recipeId));
+    //alert(parseInt(recipeId));
     if(isNaN(parseInt(recipeId))) {
       recipeId = decodeURIComponent(recipeId);
       getRecipe = this.recipeService.getRecipe;

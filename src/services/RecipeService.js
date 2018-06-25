@@ -97,7 +97,7 @@ export default class RecipeService {
         return response.json();
       })
       .then(recipe => {
-        alert(JSON.stringify(recipe[0]));
+        //alert(JSON.stringify(recipe[0]));
         return recipe[0];
       })
       .catch((error) => {
