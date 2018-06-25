@@ -34,38 +34,57 @@ export default class Recipe extends Component {
   }
 
   componentDidMount() {
-    let recipe = this.props.location.state.recipe;
-    this.setState({recipe: recipe}, this.getEndorsedByUsers);
-    this.setState({tabView: 'overview'});
-    this.userService.subscribeToUser(user => {
-      for(let i = 0; i < user.savedRecipes.length; i++) {
-        if((recipe.id && (user.savedRecipes[i].id === recipe.id)) ||
-           (recipe.uri && (user.savedRecipes[i].uri === recipe.uri))) {
-          this.setState({saved: true});
-          break;
-        }
-      }
-      for(let i = 0; i < user.endorsedRecipes.length; i++) {
-        if((recipe.id && (user.endorsedRecipes[i].id === recipe.id)) ||
-           (recipe.uri && (user.endorsedRecipes[i].uri === recipe.uri))) {
-          this.setState({endorsed: true});
-          break;
-        }
-      }
-      this.setState({user});
-    });
-
-    if(recipe.id) {
-      this.recipeService.getCreatedByUser(recipe.id)
-                        .then(user => {
-                          if(user) {
-                            console.log("created by user " + user.username);
-                            this.setState({createdByUser: user});
-                          }
-                        });
+    //alert("component mounted");
+    let recipeId = this.props.match.params.id;
+    //alert(recipeId);
+    if(!recipeId) {
+      return;
+    }
+    //alert("component mounted");
+    let getRecipe = this.recipeService.getRecipeByID;
+    alert(parseInt(recipeId));
+    if(isNaN(parseInt(recipeId))) {
+      recipeId = decodeURIComponent(recipeId);
+      getRecipe = this.recipeService.getRecipe;
     }
 
-    console.log(this.props.location.state.recipe);
+    getRecipe(recipeId).then(recipe => {
+      //alert(JSON.stringify(recipe));
+      this.setState({recipe: recipe}, () => {
+        //alert(this.state.recipe.id + " , " + this.state.recipe.uri);
+        this.getEndorsedByUsers();
+        this.setState({tabView: 'overview'});
+        this.userService.subscribeToUser(user => {
+          for(let i = 0; i < user.savedRecipes.length; i++) {
+            if((recipe.id && (user.savedRecipes[i].id === recipe.id)) ||
+               (recipe.uri && (user.savedRecipes[i].uri === recipe.uri))) {
+              this.setState({saved: true});
+              break;
+            }
+          }
+          for(let i = 0; i < user.endorsedRecipes.length; i++) {
+            if((recipe.id && (user.endorsedRecipes[i].id === recipe.id)) ||
+               (recipe.uri && (user.endorsedRecipes[i].uri === recipe.uri))) {
+              this.setState({endorsed: true});
+              break;
+            }
+          }
+          this.setState({user});
+        });
+
+        if(recipe.id) {
+          this.recipeService.getCreatedByUser(recipe.id)
+                            .then(user => {
+                              if(user) {
+                                console.log("created by user " + user.username);
+                                this.setState({createdByUser: user});
+                              }
+                            });
+        }
+
+        //console.log(this.props.location.state.recipe);
+      });
+    });
   }
 
   ingredientsSelected() {

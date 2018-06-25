@@ -95,7 +95,12 @@ export default class RecipeService {
 
       return fetch(url, {}).then((response) => {
         return response.json();
-      }).catch((error) => {
+      })
+      .then(recipe => {
+        alert(JSON.stringify(recipe[0]));
+        return recipe[0];
+      })
+      .catch((error) => {
         console.error("Fetch from Edamam failed");
         console.error(error);
         return null;
@@ -281,5 +286,18 @@ export default class RecipeService {
       .catch(err => {
         return null;
       })
+    }
+
+    getRecipeByID(recipeID) {
+      let url = BASE_URL + "/api/recipe/" + recipeID;
+      return fetch(url).then(resp => resp.json())
+                       .then(recipe => {
+                         recipe.ingredients = recipe.ingredients.map(ingredient => {
+                           //let yippy = {...ingredient, "text": ingredient.quantity + " " + ingredient.measure.label + " " + ingredient.food.label};
+                           //alert(JSON.stringify(yippy));
+                           return {...ingredient, "text": ingredient.quantity + " " + ingredient.measure.label + " " + ingredient.food.label};
+                         });
+                         return recipe;
+                       })
     }
 }

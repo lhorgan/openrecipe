@@ -48,7 +48,8 @@ class UserInfo extends Component {
              .then(recipes => {
                console.log("HERE ARE ALL THE RECIPES FROM EDAMAM");
                console.log(recipes);
-               return saneRecipes.concat(recipes.map(recipe => recipe[0]));
+               //return saneRecipes.concat(recipes.map(recipe => recipe[0]));
+               return saneRecipes.concat(recipes);
              })
              .then(allRecipes => {
                console.log("here are the saved recipes");

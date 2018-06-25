@@ -26,14 +26,14 @@ class App extends Component {
           <Route path="/profile"
             component={Profile}>
           </Route>
-          <Route path="/recipe"
-            component={SearchRecipe}>
-          </Route>
           <Route path="/admin"
             component={Admin}>
           </Route>
           <Route path="/user/:userId"
             component={UserPage}>
+          </Route>
+          <Route path="/recipe/fancy/:id"
+            component={SearchRecipe}>
           </Route>
         </div>
       </Router>
