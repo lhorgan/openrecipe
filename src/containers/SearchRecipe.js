@@ -244,7 +244,7 @@ export default class Recipe extends Component {
             <h1>{this.state.recipe.label}</h1>
             <div>
               { this.getCreatedByTag() }
-              <span className="pull-right">Endorsed by {this.state.endorsedByUsers.length} user(s)</span>
+              <span className="pull-right">Endorsed by {this.state.endorsedByUsers ? this.state.endorsedByUsers.length : 0} user(s)</span>
             </div>
             <div>
               {this.renderEndorseButton()}

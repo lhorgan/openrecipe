@@ -89,7 +89,7 @@ export default class RecipeService {
     }
 
     getRecipe(uri) {
-      let url = EDHOST + "/search?r=" + uri
+      let url = EDHOST + "/search?r=" + encodeURIComponent(uri)
                        + "&app_id=" + APP_ID
                        + "&app_key=" + APP_KEY;
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import UserService from '../services/UserService'
+import RecipeService from '../services/RecipeService'
 
 class UserInfo extends Component {
   constructor(props) {
@@ -10,10 +11,13 @@ class UserInfo extends Component {
       user: null,
       loggedIn: null,
       followings: [],
-      followers: []
+      followers: [],
+      savedRecipes: []
     };
 
     this.userService = UserService.instance;
+    this.getActualSavedRecipes = this.getActualSavedRecipes.bind(this);
+    this.recipeService = RecipeService.instance;
   }
 
   componentDidMount() {
@@ -23,7 +27,35 @@ class UserInfo extends Component {
                       .then(followings => this.setState({followings}));
       this.userService.getFollowers(this.state.user.id)
                       .then(followers=> this.setState({followers}));
+      this.getActualSavedRecipes();
     });
+  }
+
+  getActualSavedRecipes() {
+    if(this.state.user) {
+      let promises = [];
+      let saneRecipes = [];
+      for(let i = 0; i < this.state.user.savedRecipes.length; i++) {
+        let currRecipe = this.state.user.savedRecipes[i];
+        if(currRecipe.uri) {
+          promises.push(this.recipeService.getRecipe(currRecipe.uri));
+        }
+        else {
+          saneRecipes.push(currRecipe);
+        }
+      }
+      Promise.all(promises)
+             .then(recipes => {
+               console.log("HERE ARE ALL THE RECIPES FROM EDAMAM");
+               console.log(recipes);
+               return saneRecipes.concat(recipes.map(recipe => recipe[0]));
+             })
+             .then(allRecipes => {
+               console.log("here are the saved recipes");
+               console.log(allRecipes);
+               this.setState({"savedRecipes": allRecipes});
+             })
+    }
   }
 
   render() {
@@ -60,8 +92,22 @@ class UserInfo extends Component {
               </ul>
             </div>
             <div className="col-lg-9 col-md-7 col-sm-12">
-
+              <h5>Saved Recipes</h5>
+              <div>
+                { this.state.savedRecipes.map((recipe, idx) => {
+                  console.log(recipe);
+                  return <div>{ recipe.label }</div>
+                }) }
+              </div>
+              <div>
+                <h5>Created Recipes</h5>
+                { this.state.user.createdRecipes.map((recipe, idx) => {
+                  console.log(recipe);
+                  return <div>{ recipe.id }: {recipe.label}</div>
+                }) }
+              </div>
             </div>
+
           </div>);
     }
     else {
