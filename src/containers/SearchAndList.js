@@ -22,12 +22,16 @@ class SearchAndList extends Component {
                   <SearchBox searchComplete={this.listResults} />
                   <ol>
                   {this.state.results.map((result, idx) => {
-                    let encoded = encodeURIComponent(result.recipe.uri);
+                    let rid = result.recipe.id;
+                    if(result.recipe.uri) {
+                      rid = encodeURIComponent(result.recipe.uri);
+                    }
+                    //let encoded = encodeURIComponent(result.recipe.uri);
                     return <div key={idx}>
                              {/*<Link to={{pathname: '/recipe', state: {recipe: result.recipe}}}>
                                {result.recipe.label}
                              </Link>*/}
-                             <Link to={`/recipe/fancy/${encoded}`}> { result.recipe.label }
+                             <Link to={`/recipe/fancy/${rid}`}> { result.recipe.label }
                              </Link>
                            </div>
                   })}

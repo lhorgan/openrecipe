@@ -104,7 +104,7 @@ class UserInfo extends Component {
                 <h5>Created Recipes</h5>
                 { this.state.user.createdRecipes.map((recipe, idx) => {
                   console.log(recipe);
-                  return <div>{ recipe.id }: {recipe.label}</div>
+                  return <div>{recipe.label}</div>
                 }) }
               </div>
             </div>

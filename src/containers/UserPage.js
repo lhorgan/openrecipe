@@ -64,7 +64,7 @@ export default class UserPage extends Component {
           <NavBar/>
           <div className="container">
             <div className="row">
-              User: {this.state.user.username}
+              <h3>User: {this.state.user.username}</h3>
               {this.getFollowButton()}
             </div>
             <UserInfo user={this.state.user} />
