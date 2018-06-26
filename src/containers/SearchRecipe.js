@@ -265,47 +265,49 @@ export default class Recipe extends Component {
     return (
       <div>
         <NavBar/>
-        <div className="row">
-        <div className="col-8">
-          <div className="container-fluid">
-            <h1>{this.state.recipe.label}</h1>
-            <div>
-              { this.getCreatedByTag() }
-              <span className="pull-right">Endorsed by {this.state.endorsedByUsers ? this.state.endorsedByUsers.length : 0} user(s)</span>
-            </div>
-            <div>
-              {this.renderEndorseButton()}
-              {this.renderSaveButton()}
-              {this.renderPrivatizeButton()}
-            </div>
-            <div>
-              <ul className="nav nav-tabs">
-                <li className="nav-item recipe-tab" onClick={this.overviewSelected}>
-                  <div className="nav-link active">
-                    Overview
+        <div className="container">
+          <div className="row">
+            <div className="col-8">
+              <div className="container-fluid">
+                <h1>{this.state.recipe.label}</h1>
+                <div>
+                  { this.getCreatedByTag() }
+                  <span className="pull-right">Endorsed by {this.state.endorsedByUsers ? this.state.endorsedByUsers.length : 0} user(s)</span>
+                </div>
+                <div>
+                  {this.renderEndorseButton()}
+                  {this.renderSaveButton()}
+                  {this.renderPrivatizeButton()}
+                </div>
+                <div>
+                  <ul className="nav nav-tabs">
+                    <li className="nav-item recipe-tab" onClick={this.overviewSelected}>
+                      <div className="nav-link active">
+                        Overview
+                      </div>
+                    </li>
+                    <li className="nav-item recipe-tab" onClick={this.ingredientsSelected}>
+                      <div className="nav-link active">
+                        Ingredients
+                      </div>
+                    </li>
+                    <li className="nav-item recipe-tab" onClick={this.nutrientsSelected}>
+                      <div className="nav-link active">
+                        Nutrition Info
+                      </div>
+                    </li>
+                    <li className="nav-item recipe-tab" onClick={this.reviewsSelected}>
+                      <div className="nav-link active">
+                        Reviews
+                      </div>
+                    </li>
+                  </ul>
+                    {this.showTab()}
                   </div>
-                </li>
-                <li className="nav-item recipe-tab" onClick={this.ingredientsSelected}>
-                  <div className="nav-link active">
-                    Ingredients
-                  </div>
-                </li>
-                <li className="nav-item recipe-tab" onClick={this.nutrientsSelected}>
-                  <div className="nav-link active">
-                    Nutrition Info
-                  </div>
-                </li>
-                <li className="nav-item recipe-tab" onClick={this.reviewsSelected}>
-                  <div className="nav-link active">
-                    Reviews
-                  </div>
-                </li>
-              </ul>
-              {this.showTab()}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>)
+        </div>)
   }
 }
