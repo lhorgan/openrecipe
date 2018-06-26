@@ -63,6 +63,7 @@ class Admin extends Component {
               {this.state.users.map((user, idx) => {
                 return <UserEntry user={user}
                                   updateUsers={this.updateUsers}
+                                  onDelete={this.udpateUsers}
                                   key={idx} />
               })}
               </tbody>

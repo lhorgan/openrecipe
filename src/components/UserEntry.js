@@ -16,6 +16,7 @@ class UserEntry extends Component {
     this.handleAdminCheck = this.handleAdminCheck.bind(this);
     this.handleChefCheck = this.handleChefCheck.bind(this);
     this.saveUser = this.saveUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +42,15 @@ class UserEntry extends Component {
                     });
   }
 
+  deleteUser() {
+    this.userService.deleteUser(this.state.user.id)
+                    .then(() => {
+                      if(typeof(this.state.updateUsers) === "function") {
+                        this.state.updateUsers();
+                      }
+                    });
+  }
+
   render() {
     if(this.state.user) {
       return (<tr>
@@ -54,10 +64,10 @@ class UserEntry extends Component {
              <input type="checkbox" checked={ this.state.user.chef } onChange={this.handleChefCheck} />
            </td>
            <td>
-             <div onClick={this.saveUser}>Save</div>
+             <button className="btn btn-success m-1" onClick={this.saveUser}>Save</button>
            </td>
            <td>
-             <div onClick={this.deleteUser}>Delete</div>
+             <div className="btn btn-danger m-1" onClick={this.deleteUser}>Delete</div>
            </td>
         </tr>)
     }
