@@ -21,7 +21,10 @@ export default class NavBar extends React.Component {
   profileOrLogin() {
     if (this.state.user) {
       return (
-        <Link to={`/profile`}>Hi, {this.state.user.username}</Link>
+        <div>
+          <Link to={`/profile`}>Hi, {this.state.user.username}</Link>
+          <button className="btn btn-danger" style={{ margin: "5px" }}>Logout</button>
+        </div>
       );
     } else {
       return (
