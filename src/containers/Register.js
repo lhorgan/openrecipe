@@ -87,51 +87,32 @@ class Register extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <h1>Register</h1>
-          <div>
-            <form>
-              <label>
-                First Name:
-                <input className="form-control" value={this.state.user.firstName} onChange={this.handleFirstNameChange} />
-              </label>
-            </form>
-          </div>
-          <div>
-            <form>
-              <label>
-                Last Name:
-                <input className="form-control" value={this.state.user.lastName} onChange={this.handleLastNameChange} />
-              </label>
-            </form>
-          </div>
+        {/*<h1>Register</h1>*/}
         <div>
-          <form>
-            <label>
-              Username:
-              <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
-            </label>
-          </form>
+          <label>First Name:</label>
+          <input className="form-control" value={this.state.user.firstName} onChange={this.handleFirstNameChange} />
         </div>
         <div>
-          <form>
-            <label>
-              Password:
-              <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
-            </label>
-          </form>
+          <label>Last Name:</label>
+          <input className="form-control" value={this.state.user.lastName} onChange={this.handleLastNameChange} />
         </div>
         <div>
-          <form>
-            <label>
-              Verify Password:
-              <input className="form-control" value={this.state.verifiedPassword} onChange={this.handleVerifyPassword} />
-            </label>
-          </form>
+          <label>Username:</label>
+          <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
         </div>
-        <button onClick={this.registerUser} className="btn btn-primary btn-block" type="button">
-          Register
-        </button>
-
+        <div>
+          <label>Password:</label>
+          <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
+        </div>
+        <div>
+          <label>Verify Password:</label>
+          <input className="form-control" value={this.state.verifiedPassword} onChange={this.handleVerifyPassword} />
+        </div>
+        <div>
+          <button onClick={this.registerUser} className="btn btn-primary btn-block" type="button">
+            Register
+          </button>
+        </div>
         <Link to={`/login`}>
           Login
         </Link>

@@ -4,6 +4,7 @@ import CreateRecipeModal from '../components/CreateRecipeModal';
 import UserService from '../services/UserService'
 import UserEntry from '../components/UserEntry'
 import NavBar from '../components/NavBar'
+import Register from './Register'
 
 class Admin extends Component {
   constructor(props) {
@@ -43,23 +44,27 @@ class Admin extends Component {
       return (
         <div>
           <NavBar/>
-          <h1>Hello, user {this.state.user.id}: {this.state.user.username}!</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Admin?</th>
-                <th>Chef?</th>
-              </tr>
-            </thead>
-            <tbody>
-            {this.state.users.map((user, idx) => {
-              return <UserEntry user={user}
-                                updateUsers={this.updateUsers}
-                                key={idx} />
-            })}
-            </tbody>
-          </table>
+          <div className="container">
+            <h1>Hello, user {this.state.user.id}: {this.state.user.username}!</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Admin?</th>
+                  <th>Chef?</th>
+                </tr>
+              </thead>
+              <tbody>
+              {this.state.users.map((user, idx) => {
+                return <UserEntry user={user}
+                                  updateUsers={this.updateUsers}
+                                  key={idx} />
+              })}
+              </tbody>
+            </table>
+            <h3>Create New User</h3>
+            <Register />
+          </div>
         </div>
       )
     }

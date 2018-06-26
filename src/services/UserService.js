@@ -57,9 +57,9 @@ export default class UserService {
       }
     }
 
-    getLoggedInUser() {
+    /*getLoggedInUser() {
       return this.user;
-    }
+    }*/
 
     login(user) {
       return fetch(LOGIN_API_URL, {
@@ -196,5 +196,9 @@ export default class UserService {
                this.updateUser(null);
                window.location.assign("/");
              });
+    }
+
+    deleteUser(uid) {
+      return fetch(USER_API_URL + "/" + uid, {credentials: "include", method: "DELETE"});
     }
 }
