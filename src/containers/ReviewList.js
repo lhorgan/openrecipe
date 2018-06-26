@@ -1,6 +1,7 @@
 import React from 'react';
 
 import RecipeService from '../services/RecipeService'
+import UserService from '../services/UserService'
 
 export default class ReviewList extends React.Component {
   constructor(props) {
@@ -9,16 +10,19 @@ export default class ReviewList extends React.Component {
       reviews: [],
       recipeId: null,
       recipeURI: null,
-      review: ""
+      review: "",
+      user: null
     };
 
     this.setReview = this.setReview.bind(this);
     this.addReview = this.addReview.bind(this);
 
     this.recipeService = RecipeService.instance;
+    this.userService = UserService.instance;
   }
 
   componentDidMount() {
+    this.userService.subscribeToUser(user => this.setState({user}));
     this.setState({recipeId: this.props.recipeId});
     this.setState({recipeURI: this.props.recipeURI});
     this.recipeService.getReviews(this.props.recipeId, this.props.recipeURI)
@@ -40,16 +44,33 @@ export default class ReviewList extends React.Component {
     this.setState({"review": evt.target.value});
   }
 
+  addButton() {
+    if(this.state.user && this.state.user.id) {
+      return (
+        <form>
+          <div>
+            <textarea onChange={this.setReview} value={this.state.review} className="form-control" />
+          </div>
+          <div>
+            <button className="btn btn-success" onClick={this.addReview}>Add</button>
+          </div>
+        </form>
+      )
+    }
+    else {
+      return <div>Log in to add a review.</div>
+    }
+  }
+
   render() {
     return (<div>
       <div className="review-list">
         {this.state.reviews.map((review, idx) => {
-          return <div key={idx}>{review.review}</div>
+          return <div key={idx} className="box">{review.review}</div>
         })}
       </div>
       <div>
-        <textarea onChange={this.setReview} value={this.state.review} />
-        <button onClick={this.addReview}>Add</button>
+        { this.addButton() }
       </div>
     </div>)
   }
