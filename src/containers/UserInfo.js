@@ -26,9 +26,9 @@ class UserInfo extends Component {
     this.userService.subscribeToUser(loggedIn => this.setState({loggedIn}));
     this.setState({user: this.props.user}, () => {
       this.userService.getFollowings(this.state.user.id)
-                      .then(followings => this.setState({followings}));
+                      .then(followings => this.setState({followings: followings}));
       this.userService.getFollowers(this.state.user.id)
-                      .then(followers=> this.setState({followers}));
+                      .then(followers=> this.setState({followers: followers}));
       this.getActualSavedRecipes();
     });
   }
@@ -84,11 +84,11 @@ class UserInfo extends Component {
                 </li>
                 <li className="list-group-item text-right" style={{'cursor': 'pointer'}}>
                   <span className="pull-left"><strong>Followers</strong></span>
-                  { this.state.followings.length }
+                  { this.state.followers.length }
                 </li>
                 <li className="list-group-item text-right" style={{'cursor': 'pointer'}}>
                   <span className="pull-left"><strong>Following</strong></span>
-                  { this.state.followers.length }
+                  { this.state.followings.length }
                 </li>
               </ul>
             </div>
@@ -114,6 +114,18 @@ class UserInfo extends Component {
                   let rid = recipe.id;
                   return <div key={idx}><Link to={`/recipe/fancy/${rid}`}> { recipe.label }</Link></div>
                 }) }
+              </div>
+              <div className="box">
+                <h5>Following</h5>
+                { this.state.followings.map((user, idx) => {
+                  return <div key="idx">{ user.username }</div>
+                })}
+              </div>
+              <div className="box">
+                <h5>Followers</h5>
+                { this.state.followers.map((user, idx) => {
+                  return <div key="idx">{ user.username }</div>
+                })}
               </div>
             </div>
 
