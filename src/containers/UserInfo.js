@@ -101,7 +101,7 @@ class UserInfo extends Component {
                     if(recipe.uri) {
                       rid = encodeURIComponent(recipe.uri);
                     }
-                    return <div><Link to={`/recipe/fancy/${rid}`}> { recipe.label }</Link></div>
+                    return <div key={idx}><Link to={`/recipe/fancy/${rid}`}> { recipe.label }</Link></div>
                   }
                   else {
                     return <div>Edamam recipe: could not load (API limit)</div>
@@ -112,7 +112,7 @@ class UserInfo extends Component {
                 <h5>Created Recipes</h5>
                 { this.state.user.createdRecipes.map((recipe, idx) => {
                   let rid = recipe.id;
-                  return <div><Link to={`/recipe/fancy/${rid}`}> { recipe.label }</Link></div>
+                  return <div key={idx}><Link to={`/recipe/fancy/${rid}`}> { recipe.label }</Link></div>
                 }) }
               </div>
             </div>

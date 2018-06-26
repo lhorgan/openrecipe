@@ -48,13 +48,16 @@ class UserEntry extends Component {
             { this.state.user.username }
            </td>
            <td>
-            <input type="checkbox" checked={ this.state.user.admin } onChange={this.handleAdminCheck} />
+             <input type="checkbox" checked={ this.state.user.admin } onChange={this.handleAdminCheck} />
            </td>
            <td>
-            <input type="checkbox" checked={ this.state.user.chef } onChange={this.handleChefCheck} />
+             <input type="checkbox" checked={ this.state.user.chef } onChange={this.handleChefCheck} />
            </td>
            <td>
-            <div onClick={this.saveUser}>Save</div>
+             <div onClick={this.saveUser}>Save</div>
+           </td>
+           <td>
+             <div onClick={this.deleteUser}>Delete</div>
            </td>
         </tr>)
     }

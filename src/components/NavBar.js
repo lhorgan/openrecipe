@@ -24,7 +24,7 @@ export default class NavBar extends React.Component {
   }
 
   profileOrLogin() {
-    if (this.state.user) {
+    if (this.state.user && this.state.user.id) {
       return (
         <div>
           <Link to={`/profile`}>Hi, {this.state.user.username}</Link>

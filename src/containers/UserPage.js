@@ -61,7 +61,7 @@ export default class UserPage extends Component {
       console.log(this.state.user);
       return (
         <div>
-          <NavBar/>
+          <NavBar />
           <div className="container">
             <div className="row">
               <h3>User: {this.state.user.username}</h3>
