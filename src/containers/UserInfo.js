@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import UserService from '../services/UserService'
 import RecipeService from '../services/RecipeService'
 
+import { Link } from 'react-router-dom'
+
 class UserInfo extends Component {
   constructor(props) {
     super(props);
@@ -95,7 +97,11 @@ class UserInfo extends Component {
                 <h5>Saved Recipes</h5>
                 { this.state.savedRecipes.map((recipe, idx) => {
                   if(recipe) {
-                    return <div>{ recipe.label }</div>
+                    let rid = recipe.id;
+                    if(recipe.uri) {
+                      rid = encodeURIComponent(recipe.uri);
+                    }
+                    return <div><Link to={`/recipe/fancy/${rid}`}> { recipe.label }</Link></div>
                   }
                   else {
                     return <div>Edamam recipe: could not load (API limit)</div>
@@ -105,8 +111,8 @@ class UserInfo extends Component {
               <div className="box">
                 <h5>Created Recipes</h5>
                 { this.state.user.createdRecipes.map((recipe, idx) => {
-                  console.log(recipe);
-                  return <div>{recipe.label}</div>
+                  let rid = recipe.id;
+                  return <div><Link to={`/recipe/fancy/${rid}`}> { recipe.label }</Link></div>
                 }) }
               </div>
             </div>

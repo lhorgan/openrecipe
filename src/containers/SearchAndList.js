@@ -31,8 +31,7 @@ class SearchAndList extends Component {
                              {/*<Link to={{pathname: '/recipe', state: {recipe: result.recipe}}}>
                                {result.recipe.label}
                              </Link>*/}
-                             <Link to={`/recipe/fancy/${rid}`}> { result.recipe.label }
-                             </Link>
+                             <Link to={`/recipe/fancy/${rid}`}> { result.recipe.label }</Link>
                            </div>
                   })}
                   </ol>
