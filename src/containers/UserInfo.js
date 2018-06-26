@@ -117,14 +117,18 @@ class UserInfo extends Component {
               </div>
               <div className="box">
                 <h5>Following</h5>
-                { this.state.followings.map((user, idx) => {
-                  return <div key="idx">{ user.username }</div>
+                { this.state.followings.map((cuser, idx) => {
+                  return (<Link to={`/user/${cuser.id}`}
+                                target="_blank"
+                                key={idx}>{ cuser.username }</Link>)
                 })}
               </div>
               <div className="box">
                 <h5>Followers</h5>
-                { this.state.followers.map((user, idx) => {
-                  return <div key="idx">{ user.username }</div>
+                { this.state.followers.map((cuser, idx) => {
+                  return (<Link to={`/user/${cuser.id}`}
+                                target="_blank"
+                                key={idx}>{ cuser.username }</Link>)
                 })}
               </div>
             </div>
