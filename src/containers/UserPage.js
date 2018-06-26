@@ -43,14 +43,14 @@ export default class UserPage extends Component {
   }
 
   getFollowButton() {
-    if(this.state.loggedIn && (this.state.loggedIn.id !== this.state.user.id)) {
+    if(this.state.loggedIn && (this.state.loggedIn.id !== this.state.user.id) && this.state.loggedIn.id) {
       if(this.state.following) {
         return <button className="disabled btn btn-success">Following!</button>
       }
       else {
         return (
-          <button className="btn btn-success pull-right"
-                  onClick={this.followUser}>Follow, ps nothing matters</button>
+          <button className="btn btn-success m-1 pull-right"
+                  onClick={this.followUser}>Follow</button>
         )
       }
     }

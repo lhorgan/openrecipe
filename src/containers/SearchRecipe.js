@@ -142,14 +142,17 @@ export default class Recipe extends Component {
       }
     }
     else if(this.state.tabView === "overview") {
-      return <div>Overview</div>
-      /*return (<div>
-        Overview
-        <img src={this.state.recipe.image} />
-        <div>
-          <a href={this.state.recipe.url}> Click to see full recipe </a>
-        </div>
-      </div>);*/
+      if(this.state.recipe.uri) {
+        return (<div>
+          <img src={this.state.recipe.image} />
+          <div>
+            <a href={this.state.recipe.url}> Click to see full recipe </a>
+          </div>
+        </div>);
+      }
+      else {
+        return <div>{this.state.recipe.description}</div>
+      }
     }
   }
 
@@ -217,12 +220,12 @@ export default class Recipe extends Component {
     if(this.state.user && this.state.user.chef) {
       if(!this.state.endorsed) {
         return (
-          <button className="btn btn-primary"
+          <button className="btn btn-primary m-1"
                   onClick={this.endorseRecipe}>Endorse this recipe!</button>
         )
       }
       else {
-        return (<button className="btn btn-primary disabled">Endorsed!</button>)
+        return (<button className="btn btn-primary disabled m-1">Endorsed!</button>)
       }
     }
   }
@@ -232,7 +235,7 @@ export default class Recipe extends Component {
     if(this.state.user) {
       if(!this.state.saved) {
         return (
-          <button className="btn btn-primary"
+          <button className="btn btn-primary m-1"
                   onClick={this.saveRecipe}>Save this recipe!</button>
         )
       }
@@ -252,9 +255,9 @@ export default class Recipe extends Component {
         if (this.state.recipe) {
           //alert("199");``
           if (this.state.recipe.private) {
-            return <button className="btn btn-danger" onClick={this.togglePrivate}>Make public</button>
+            return <button className="btn btn-danger m-1" onClick={this.togglePrivate}>Make public</button>
           } else {
-            return <button className="btn btn-danger" onClick={this.togglePrivate}>Make Private</button>
+            return <button className="btn btn-danger m-1" onClick={this.togglePrivate}>Make Private</button>
           }
         }
       }
