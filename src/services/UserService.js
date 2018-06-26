@@ -193,7 +193,8 @@ export default class UserService {
     logout() {
       return fetch(BASE_URL + "/api/logout", {credentials: "include"})
              .then(() => {
-               this.updateUser(null)
+               this.updateUser(null);
+               window.location.assign("/");
              });
     }
 }
