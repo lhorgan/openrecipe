@@ -52,18 +52,16 @@ class UserInfo extends Component {
                return saneRecipes.concat(recipes);
              })
              .then(allRecipes => {
-               console.log("here are the saved recipes");
-               console.log(allRecipes);
                this.setState({"savedRecipes": allRecipes});
+             })
+             .catch(err => {
+               this.setState({"savedRecipes": saneRecipes});
              })
     }
   }
 
   render() {
     if(this.state.user) {
-      console.log("\n\n\n\n");
-      console.log(this.state.user);
-      console.log("\n\n\n\n");
       return (
           <div className="row">
             <div className="col-lg-3 col-md-5 col-sm-12">
@@ -96,8 +94,12 @@ class UserInfo extends Component {
               <div className="box">
                 <h5>Saved Recipes</h5>
                 { this.state.savedRecipes.map((recipe, idx) => {
-                  console.log(recipe);
-                  return <div>{ recipe.label }</div>
+                  if(recipe) {
+                    return <div>{ recipe.label }</div>
+                  }
+                  else {
+                    return <div>Edamam recipe: could not load (API limit)</div>
+                  }
                 }) }
               </div>
               <div className="box">
