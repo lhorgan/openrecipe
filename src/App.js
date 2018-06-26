@@ -6,6 +6,10 @@ import Login from './containers/Login'
 import Register from './containers/Register'
 import Profile from './containers/Profile'
 import SearchRecipe from './containers/SearchRecipe'
+import Admin from './containers/Admin'
+import UserPage from './containers/UserPage'
+
+import './App.css'
 
 class App extends Component {
   render() {
@@ -24,7 +28,13 @@ class App extends Component {
           <Route path="/profile"
             component={Profile}>
           </Route>
-          <Route path="/recipe"
+          <Route path="/admin"
+            component={Admin}>
+          </Route>
+          <Route path="/user/:userId"
+            component={UserPage}>
+          </Route>
+          <Route path="/recipe/fancy/:id"
             component={SearchRecipe}>
           </Route>
         </div>

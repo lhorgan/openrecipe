@@ -1,107 +1,26 @@
-import React from 'react';
-import UserService from '../services/UserService'
+import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
-class Register extends React.Component {
+import UserService from '../services/UserService'
+import RegisterHelper from './RegisterHelper'
+
+export default class Register extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      user: {
-        username: '',
-        password: ''
-      },
-      verifiedPassword: ''
-    };
-
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleVerifyPassword = this.handleVerifyPassword.bind(this);
-    this.registerUser = this.registerUser.bind(this);
+    this.onRegister = this.onRegister.bind(this);
     this.userService = UserService.instance;
-    this.isEmpty = this.isEmpty.bind(this);
   }
 
-  handleUsernameChange(event) {
-    this.setState({user: {...this.state.user, username: event.target.value}});
-    console.log(this.state.user)
-  }
-
-  handlePasswordChange(event) {
-    this.setState({user: {...this.state.user, password: event.target.value}});
-    console.log(this.state.user)
-  }
-
-  handleVerifyPassword(event) {
-    this.setState({verifiedPassword: event.target.value});
-  }
-
-  isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-  }
-
-  registerUser() {
-    if (this.state.user.password !== this.state.verifiedPassword) {
-      alert("Passwords do not match!");
-    }
-    else if (this.state.user.username === "") {
-      alert("Please enter a valid username")
-    } else {
-      this.userService
-        .registerUser(this.state.user)
-        .then((response) => {
-           return response.text().then(text => {
-            return text ? JSON.parse(text) : {}
-           })
-        }).then(json => {
-            if (this.isEmpty(json)) {
-              alert("This username is already taken!");
-            } else {
-              this.props.history.push({
-                pathname: '/profile',
-                state: { user: json }
-              })
-            }
-        });
-    }
+  onRegister() {
+    window.location.replace("/");
   }
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         <h1>Register</h1>
-        <div>
-          <form>
-            <label>
-              Username:
-              <input className="form-control" value={this.state.user.username} onChange={this.handleUsernameChange} />
-            </label>
-          </form>
-        </div>
-        <div>
-          <form>
-            <label>
-              Password:
-              <input className="form-control" value={this.state.user.password} onChange={this.handlePasswordChange} />
-            </label>
-          </form>
-        </div>
-        <div>
-          <form>
-            <label>
-              Verify Password:
-              <input className="form-control" value={this.state.verifiedPassword} onChange={this.handleVerifyPassword} />
-            </label>
-          </form>
-        </div>
-        <button onClick={this.registerUser} className="btn btn-primary btn-block" type="button">
-          Register
-        </button>
-
+        <RegisterHelper onRegister={this.onRegister} />
         <Link to={`/login`}>
           Login
         </Link>
@@ -112,5 +31,3 @@ class Register extends React.Component {
     )
   }
 }
-
-export default Register;

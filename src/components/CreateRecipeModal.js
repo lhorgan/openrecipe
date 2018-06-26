@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import IngredientList from './IngredientList';
 import RecipeService from '../services/RecipeService'
+import UserService from '../services/UserService'
 
 export default class CreateRecipeModal extends React.Component {
 
@@ -11,8 +12,8 @@ export default class CreateRecipeModal extends React.Component {
     this.state = {
       ingredients : [{
         'quantity' : "",
-        'measure' : "",
-        'food' : ""
+        'measure' : {},
+        'food' : {}
       }],
       instructions: ""
     }
@@ -22,26 +23,41 @@ export default class CreateRecipeModal extends React.Component {
     this.setInstructions = this.setInstructions.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.setPropertyOfIngredient = this.setPropertyOfIngredient.bind(this);
-    this.setQuantityOfIngredient = this.setQuantityOfIngredient.bind(this);
     this.deleteIngredient = this.deleteIngredient.bind(this);
+    this.setLabel = this.setLabel.bind(this);
+    this.userService = UserService.instance;
     Modal.setAppElement("#root");
+  }
+
+  componentDidMount() {
+    this.userService.subscribeToUser(user => this.setState({user}));
   }
 
   createRecipe() {
     console.log("recipe save button clicked!");
-    this.recipeService.createRecipe(this.state, this.props.userId);
+    this.recipeService.createRecipe(this.state, this.props.userId)
+                      .then(recipe => {
+                        if(this.state.user) {
+                          this.state.user.createdRecipes.push(recipe);
+                          this.userService.updateUser(this.state.user);
+                        }
+                      })
   }
 
   setInstructions(evt) {
     this.setState({instructions: evt.target.value});
   }
 
+  setLabel(evt) {
+    this.setState({label: evt.target.value});
+  }
+
   addIngredient() {
     this.setState({
       ingredients: [...this.state.ingredients, {
           'quantity' : "",
-          'measure' : "",
-          'food' : ""
+          'measure' : {},
+          'food' : {}
         }]});
     console.log(this.state.ingredients);
   }
@@ -49,21 +65,14 @@ export default class CreateRecipeModal extends React.Component {
   deleteIngredient(index) {
     let ingredientDeleted = this.state.ingredients.slice();
     ingredientDeleted.splice(index, 1);
-    this.setState( {ingredients: ingredientDeleted})
+    this.setState({ingredients: ingredientDeleted});
   }
 
   setPropertyOfIngredient(evt, property, index) {
     let updatedIngredients = this.state.ingredients.slice();
     let updatedIngredient = updatedIngredients[index];
-    updatedIngredient[property] = {label: evt.target.value};
-    this.setState({ingredients: updatedIngredients})
-  }
-
-  setQuantityOfIngredient(evt, index) {
-    let updatedIngredients = this.state.ingredients.slice();
-    let updatedIngredient = updatedIngredients[index];
-    updatedIngredient['quantity'] = evt.target.value;
-    this.setState({ingredients: updatedIngredients})
+    updatedIngredient[property] = evt.target.value;
+    this.setState({ingredients: updatedIngredients});
   }
 
   render() {
@@ -82,11 +91,17 @@ export default class CreateRecipeModal extends React.Component {
             </button>
           </div>
           <div className="modal-body">
+            <div className="form-group">
+              <label htmlFor="label">Name</label>
+              <input className="recipe-label"
+                     id="recipe-label"
+                     placeholder="Title"
+                     onChange={this.setLabel} />
+            </div>
             <IngredientList ingredients={this.state.ingredients}
                             add={this.addIngredient}
                             delete={this.deleteIngredient}
-                            setProperty={this.setPropertyOfIngredient}
-                            setQuantity={this.setQuantityOfIngredient}/>
+                            setProperty={this.setPropertyOfIngredient} />
             <div className="form-group">
               <label htmlFor="instructions">Instructions</label>
               <textarea className="form-control" id="instructions"
