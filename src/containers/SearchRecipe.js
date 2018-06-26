@@ -151,7 +151,7 @@ export default class Recipe extends Component {
         </div>);
       }
       else {
-        return <div>{this.state.recipe.description}</div>
+        return <div>{this.state.recipe.instructions}</div>
       }
     }
   }
