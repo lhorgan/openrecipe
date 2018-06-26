@@ -80,6 +80,8 @@ export default class UserService {
     }
 
     registerUser(user) {
+      console.log("REGISTERING");
+      console.log(user);
       return fetch(REGISTER_API_URL, {
         body: JSON.stringify(user),
         headers: {
