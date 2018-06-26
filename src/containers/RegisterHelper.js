@@ -117,12 +117,6 @@ class RegisterHelper extends React.Component {
             Register
           </button>
         </div>
-        <Link to={`/login`}>
-          Login
-        </Link>
-        <Link to={`/`} className="float-right">
-          Home
-        </Link>
       </div>
     )
   }

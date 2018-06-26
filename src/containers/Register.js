@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 
 import UserService from '../services/UserService'
 import RegisterHelper from './RegisterHelper'
@@ -12,7 +13,6 @@ export default class Register extends Component {
   }
 
   onRegister() {
-    //alert("REGISTRATION SUCCESSFUL");
     window.location.replace("/");
   }
 
@@ -21,6 +21,12 @@ export default class Register extends Component {
       <div className="container">
         <h1>Register</h1>
         <RegisterHelper onRegister={this.onRegister} />
+        <Link to={`/login`}>
+          Login
+        </Link>
+        <Link to={`/`} className="float-right">
+          Home
+        </Link>
       </div>
     )
   }

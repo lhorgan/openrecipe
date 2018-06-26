@@ -4,7 +4,7 @@ import CreateRecipeModal from '../components/CreateRecipeModal';
 import UserService from '../services/UserService'
 import UserEntry from '../components/UserEntry'
 import NavBar from '../components/NavBar'
-import Register from './Register'
+import RegisterHelper from './RegisterHelper'
 
 class Admin extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class Admin extends Component {
     this.userService = UserService.instance;
 
     this.updateUsers = this.updateUsers.bind(this);
+    this.onCreateUser = this.onCreateUser.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +33,10 @@ class Admin extends Component {
                       console.log(users);
                       this.setState({users: users});
                     });
+  }
+
+  onCreateUser() {
+    this.updateUsers();
   }
 
   render() {
@@ -63,7 +68,7 @@ class Admin extends Component {
               </tbody>
             </table>
             <h3>Create New User</h3>
-            <Register />
+            <RegisterHelper onRegister={this.onCreateUser} />
           </div>
         </div>
       )
