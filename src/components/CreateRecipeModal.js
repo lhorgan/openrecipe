@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import IngredientList from './IngredientList';
 import RecipeService from '../services/RecipeService'
+import UserService from '../services/UserService'
 
 export default class CreateRecipeModal extends React.Component {
 
@@ -24,12 +25,23 @@ export default class CreateRecipeModal extends React.Component {
     this.setPropertyOfIngredient = this.setPropertyOfIngredient.bind(this);
     this.deleteIngredient = this.deleteIngredient.bind(this);
     this.setLabel = this.setLabel.bind(this);
+    this.userService = UserService.instance;
     Modal.setAppElement("#root");
+  }
+
+  componentDidMount() {
+    this.userService.subscribeToUser(user => this.setState({user}));
   }
 
   createRecipe() {
     console.log("recipe save button clicked!");
-    this.recipeService.createRecipe(this.state, this.props.userId);
+    this.recipeService.createRecipe(this.state, this.props.userId)
+                      .then(recipe => {
+                        if(this.state.user) {
+                          this.state.user.createdRecipes.push(recipe);
+                          this.userService.updateUser(this.state.user);
+                        }
+                      })
   }
 
   setInstructions(evt) {
