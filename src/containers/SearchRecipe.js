@@ -265,7 +265,7 @@ export default class Recipe extends Component {
   }
 
   render() {
-    if(this.state.recipe.label) {
+    if(this.state.recipe) {
       return (
         <div>
           <NavBar/>

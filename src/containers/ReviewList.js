@@ -37,7 +37,14 @@ export default class ReviewList extends React.Component {
     console.log(this.state.review);
     console.log(this.state.recipeId);
     console.log(this.state.recipeURI);
-    this.recipeService.addReview(this.state.recipeId, this.state.recipeURI, this.state.review);
+    this.recipeService.addReview(this.state.recipeId, this.state.recipeURI, this.state.review)
+                      .then(() => {
+                        this.recipeService.getReviews(this.state.recipeId, this.state.recipeURI)
+                            .then(reviews => {
+                              this.setState({review: ""});
+                              this.setState({reviews})
+                            });
+                      });
   }
 
   setReview(evt) {
@@ -47,14 +54,14 @@ export default class ReviewList extends React.Component {
   addButton() {
     if(this.state.user && this.state.user.id) {
       return (
-        <form>
+        <div>
           <div>
-            <textarea onChange={this.setReview} value={this.state.review} className="form-control" />
+            <textarea onChange={this.setReview} value={this.state.review} className="form-control m-1" />
           </div>
           <div>
-            <button className="btn btn-success" onClick={this.addReview}>Add</button>
+            <button className="btn btn-success m-1" onClick={this.addReview}>Add</button>
           </div>
-        </form>
+        </div>
       )
     }
     else {
