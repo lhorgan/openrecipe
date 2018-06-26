@@ -47,11 +47,13 @@ class Profile extends Component {
           <NavBar/>
           <div className="container">
             <div className="row">
-              <h1>Hello, user {this.state.user.id}: {this.state.user.username}!</h1>
-              <button className="btn btn-default" onClick={this.openCreateModal}>Create Recipe</button>
-              <CreateRecipeModal isOpen={this.state.createModalOpen}
-                                 onHide={this.closeCreateModal}
-                                 userId={this.state.user.id}/>
+              <div className="col-sm-12">
+                <h1>Hello, { this.state.user.firstName ? this.state.user.firstName : this.state.user.username }</h1>
+                <button className="btn btn-success pull-right" onClick={this.openCreateModal}>Create Recipe</button>
+                <CreateRecipeModal isOpen={this.state.createModalOpen}
+                                   onHide={this.closeCreateModal}
+                                   userId={this.state.user.id}/>
+              </div>
             </div>
             <UserInfo user={this.state.user} />
           </div>
