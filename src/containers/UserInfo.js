@@ -93,14 +93,14 @@ class UserInfo extends Component {
               </ul>
             </div>
             <div className="col-lg-9 col-md-7 col-sm-12">
-              <h5>Saved Recipes</h5>
-              <div>
+              <div className="box">
+                <h5>Saved Recipes</h5>
                 { this.state.savedRecipes.map((recipe, idx) => {
                   console.log(recipe);
                   return <div>{ recipe.label }</div>
                 }) }
               </div>
-              <div>
+              <div className="box">
                 <h5>Created Recipes</h5>
                 { this.state.user.createdRecipes.map((recipe, idx) => {
                   console.log(recipe);

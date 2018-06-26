@@ -9,6 +9,8 @@ import SearchRecipe from './containers/SearchRecipe'
 import Admin from './containers/Admin'
 import UserPage from './containers/UserPage'
 
+import './App.css'
+
 class App extends Component {
   render() {
     return (
