@@ -12,10 +12,15 @@ export default class NavBar extends React.Component {
     this.profileOrLogin = this.profileOrLogin.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.userService = UserService.instance;
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
     this.userService.subscribeToUser(user => this.setState({user}));
+  }
+
+  logout() {
+    this.userService.logout();
   }
 
   profileOrLogin() {
@@ -23,7 +28,8 @@ export default class NavBar extends React.Component {
       return (
         <div>
           <Link to={`/profile`}>Hi, {this.state.user.username}</Link>
-          <button className="btn btn-danger" style={{ margin: "5px" }}>Logout</button>
+          <button className="btn btn-danger" style={{ margin: "5px" }}
+                  onClick={this.logout}>Logout</button>
         </div>
       );
     } else {

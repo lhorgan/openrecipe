@@ -189,4 +189,11 @@ export default class UserService {
         return following;
       })
     }
+
+    logout() {
+      return fetch(BASE_URL + "/api/logout", {credentials: "include"})
+             .then(() => {
+               this.updateUser(null)
+             });
+    }
 }
